@@ -80,7 +80,8 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.pushMatrix();
-        this.translate(0.5, -0.5, 1);
+        this.translate(0.5, 0, 0.5);
+        this.rotate(-Math.PI/2, 1, 0, 0);
 
         if (this.viewTangram)
             this.tangram.display(this);
