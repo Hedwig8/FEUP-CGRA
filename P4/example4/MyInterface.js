@@ -25,8 +25,8 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'wrapS', this.scene.wrappingS).name('Wrap S').onChange(this.scene.updateTextureWrapping.bind(this.scene));
         this.gui.add(this.scene, 'wrapT', this.scene.wrappingT).name('Wrap T').onChange(this.scene.updateTextureWrapping.bind(this.scene));
 
-        this.gui.add(this.scene, 'showMyQuad').name('Display Quad');
-        this.gui.add(this.scene, 'showQuadMaterial').name('Display Quad Material');
+        this.gui.add(this.scene, 'displayTangram').name('Display Tangram');
+        this.gui.add(this.scene, 'displayCube').name('Display Unit Cube');
 
         //Groups for Texture coordinates per vertex (MyQuad)
         var f0 = this.gui.addFolder('Top Left Coords')
