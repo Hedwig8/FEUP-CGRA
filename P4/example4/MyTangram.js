@@ -57,12 +57,24 @@ class MyTangram extends CGFobject{
 
             //BIG TRIANGLES
             this.scene.pushMatrix();
+            var texCoords = [
+                1, 0,
+                0, 0,
+                0.5, 0.5
+            ]
+            this.triangleBig.updateTexCoords(texCoords);
             this.tangramMaterial.apply();
             this.scene.translate(1, 0, 0);  
             this.triangleBig.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
+            texCoords = [
+                1, 1,
+                1, 0,
+                0.5, 0.5
+            ]
+            this.triangleBig.updateTexCoords(texCoords);
             this.tangramMaterial.apply();
             this.scene.translate(-1, 0, 0);
             this.scene.rotate(Math.PI, 0, 0, 1);
@@ -72,12 +84,24 @@ class MyTangram extends CGFobject{
 
             //SMALL TRIANGLES
             this.scene.pushMatrix();
+            texCoords = [
+                0, 0,
+                0, 0.5,
+                0.25, 0.25
+            ]
+            this.triangleSmall.updateTexCoords(texCoords);
             this.tangramMaterial.apply();
             this.scene.translate(1, 1, 0);
             this.triangleSmall.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
+            texCoords = [
+               0.25, 0.75,
+               0.75, 0.75,
+               0.5, 0.5
+            ]
+            this.triangleSmall.updateTexCoords(texCoords);
             this.tangramMaterial.apply();
             this.scene.translate(-1, -1, 0);
             this.scene.rotate(-Math.PI/2, 0, 0, 1);
