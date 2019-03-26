@@ -18,11 +18,31 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.enableTextures(true);
+
+        //Applied Materials
+        this.treeTopMaterial = new CGFappearance(this);
+        this.treeTopMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.treeTopMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.treeTopMaterial.setShininess(10.0);
+        this.treeTopMaterial.loadTexture('tangram.png');
+        this.treeTopMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.trunkMaterial = new CGFappearance(this);
+        this.trunkMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.trunkMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.trunkMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.trunkMaterial.setShininess(10.0);
+        this.trunkMaterial.loadTexture('tangram.png');
+        this.trunkMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.tree = new MyTree(this, 5, 5, 5, 5, this.trunkMaterial, this.treeTopMaterial);
 
         //Objects connected to MyInterface
+        
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -58,7 +78,7 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-
+        this.tree.display();
         // ---- END Primitive drawing section
     }
 }
