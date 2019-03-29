@@ -6,9 +6,9 @@ class MyCylinder extends CGFobject {
 	constructor(scene, slices, height, radius) {
 		super(scene);
 		this.slices = slices;
-		this.initBuffers();
 		this.height = height;
 		this.radius = radius;
+		this.initBuffers();
 	}
 	initBuffers() {
 		this.vertices = [];
