@@ -39,8 +39,9 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.tree = new MyTree(this, 5, 5, 5, 5, this.trunkMaterial, this.treeTopMaterial);
-
+        this.tree = new MyTree(this, 2, 1, 3, 2, this.trunkMaterial, this.treeTopMaterial);
+        
+     
         //Objects connected to MyInterface
         
     }
@@ -79,6 +80,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.tree.display();
+        //this.cone.display();
         // ---- END Primitive drawing section
     }
 }

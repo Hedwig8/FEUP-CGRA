@@ -16,13 +16,13 @@ class MyTree extends CGFobject {
     }
     
     display() {
-        /*
+        
         //Top
         this.scene.pushMatrix();
         this.scene.translate(0, this.trunkHeight, 0);
         this.treeTopTexture.apply();
         this.top.display();
-        this.scene.popMatrix();*/
+        this.scene.popMatrix();
 
         //Trunk
         this.scene.pushMatrix();

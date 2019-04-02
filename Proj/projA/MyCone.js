@@ -27,9 +27,20 @@ class MyCone extends CGFobject {
             ang+=alphaAng;
         }
 
+        for (var i = 0; i < this.slices; i++) 
+            this.texCoords.push(1 / this.slices * i, 1);
 
-        this.vertices.push(0, this.height,0);
-        this.normals.push(0, this.height, 0);
+        this.vertices.push(0, this.height, 0);
+        this.normals.push(0, 1, 0);
+        this.texCoords.push(0, 0);
+
+        this.vertices.push(0, 1, 0);
+        this.normals.push(0, 1, 0);
+        this.texCoords.push(1, 0);
+
+        this.vertices.push(this.radius, 0, 0);
+        this.normals.push(this.radius, this.radius * Math.cos(Math.PI / 4.0), 0);
+        this.texCoords.push(1, 1);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
