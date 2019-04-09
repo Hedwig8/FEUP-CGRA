@@ -66,11 +66,11 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.tree = new MyTree(this, 2, 1, 3, 2, this.trunkMaterial, this.treeTopMaterial);
+
+        this.singleTree = new MyTree(this, 2, 1, 3, 2, this.trunkMaterial, this.treeTopMaterial);
         this.house = new MyHouse(this, this.baseMaterial, this.roofMaterial, this.pilaresMaterial);
-        this.pyramid = new MyPyramid(this, 4, 2);
+        this.tree = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
         
-     
         //Objects connected to MyInterface
         
     }
@@ -109,11 +109,8 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //this.tree.display();
-
         this.house.display();
-
         //this.roofMaterial.apply();
-        //this.pyramid.display();
 
         // ---- END Primitive drawing section
     }

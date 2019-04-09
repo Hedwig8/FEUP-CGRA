@@ -43,7 +43,7 @@ class MyCone extends CGFobject {
         //Left side
         for (var i = 0; i < slicesPerSide; i++)
             this.texCoords.push(0, (1 / slicesPerSide) * i);
-
+        
         this.vertices.push(0, this.height, 0);
         this.normals.push(0, 1, 0);
         this.texCoords.push(0.5, 0.5);
@@ -51,7 +51,7 @@ class MyCone extends CGFobject {
         this.vertices.push(0, this.height, 0);
         this.normals.push(0, 1, 0);
         this.texCoords.push(0.5, 0.5);
-
+        
         //Repeating first vertex
         this.vertices.push(this.radius, 0, 0);
         this.normals.push(this.radius, this.radius * Math.cos(Math.PI / 4.0), 0);
