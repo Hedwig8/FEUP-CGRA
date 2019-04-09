@@ -21,6 +21,8 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         //Applied Materials
+
+        //Tree materials
         this.treeTopMaterial = new CGFappearance(this);
         this.treeTopMaterial.setAmbient(0.1, 0.1, 0.1, 1);
         this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -37,9 +39,36 @@ class MyScene extends CGFscene {
         this.trunkMaterial.loadTexture('tangram.png');
         this.trunkMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
+        //House Materials
+        this.baseMaterial = new CGFappearance(this);
+        this.baseMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.baseMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.baseMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.baseMaterial.setShininess(10.0);
+        this.baseMaterial.loadTexture('tangram.png');
+        this.baseMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.roofMaterial = new CGFappearance(this);
+        this.roofMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.roofMaterial.setShininess(10.0);
+        this.roofMaterial.loadTexture('tangram.png');
+        this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.pilaresMaterial = new CGFappearance(this);
+        this.pilaresMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.pilaresMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.pilaresMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.pilaresMaterial.setShininess(10.0);
+        this.pilaresMaterial.loadTexture('tangram.png');
+        this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.tree = new MyTree(this, 2, 1, 3, 2, this.trunkMaterial, this.treeTopMaterial);
+        this.house = new MyHouse(this, this.baseMaterial, this.roofMaterial, this.pilaresMaterial);
+        this.pyramid = new MyPyramid(this, 4, 2);
         
      
         //Objects connected to MyInterface
@@ -79,8 +108,13 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        this.tree.display();
-        //this.cone.display();
+        //this.tree.display();
+
+        this.house.display();
+
+        //this.roofMaterial.apply();
+        //this.pyramid.display();
+
         // ---- END Primitive drawing section
     }
 }

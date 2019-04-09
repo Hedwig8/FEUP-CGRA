@@ -1,6 +1,8 @@
 class MyPrism extends CGFobject {
-    constructor(scene, slices) {
+    constructor(scene, slices, baseRadius, height) {
         super(scene);
+        this.baseRadius = baseRadius;
+        this.height = height;
         this.slices = slices;
         this.initBuffers();
     }
@@ -14,10 +16,10 @@ class MyPrism extends CGFobject {
 
         for (var i = 0; i < this.slices; i++) {
             var ang = alphaAng * i;
-            this.vertices.push(Math.cos(ang), 0, -Math.sin(ang));
-            this.vertices.push(Math.cos(ang), 1, -Math.sin(ang));
-            this.vertices.push(Math.cos(ang), 0, -Math.sin(ang));
-            this.vertices.push(Math.cos(ang), 1, -Math.sin(ang));
+            this.vertices.push(Math.cos(ang) * this.baseRadius, 0, -Math.sin(ang) * this.baseRadius);
+            this.vertices.push(Math.cos(ang) * this.baseRadius, this.height, -Math.sin(ang) * this.baseRadius);
+            this.vertices.push(Math.cos(ang) * this.baseRadius, 0, -Math.sin(ang) * this.baseRadius);
+            this.vertices.push(Math.cos(ang) * this.baseRadius, this.height, -Math.sin(ang) * this.baseRadius);
         }
 
         for (var i = 0; i < this.slices; i++) {
@@ -50,9 +52,5 @@ class MyPrism extends CGFobject {
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
-
-        this.initNormalVizBuffers();
-        this.enableNormalViz();
-
     }
 }

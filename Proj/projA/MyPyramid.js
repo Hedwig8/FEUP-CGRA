@@ -3,33 +3,40 @@
 * @constructor
 */
 class MyPyramid extends CGFobject {
-    constructor(scene, slices, stacks) {
+    constructor(scene, slices, baseWidth) {
         super(scene);
         this.slices = slices;
-        this.stacks = stacks;
+        this.baseWidth = baseWidth;
         this.initBuffers();
     }
     initBuffers() {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
+        var baseRadius = Math.sqrt(2 * Math.pow(this.baseWidth / 2.0, 2));
 
         for(var i = 0; i < this.slices; i++){
             // All vertices have to be declared for a given face
             // even if they are shared with others, as the normals 
             // in each face will be different
 
-            var sa=Math.sin(ang);
-            var saa=Math.sin(ang+alphaAng);
-            var ca=Math.cos(ang);
-            var caa=Math.cos(ang+alphaAng);
+            var sa = Math.sin(ang) * baseRadius;
+            var saa = Math.sin(ang + alphaAng) * baseRadius;
+            var ca = Math.cos(ang) * baseRadius;
+            var caa = Math.cos(ang + alphaAng) * baseRadius;
 
             this.vertices.push(0,1,0);
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
+
+            //Using half of the texture to get a triangle for each face
+            this.texCoords.push(0, 1);
+            this.texCoords.push(1, 1);
+            this.texCoords.push(0, 0);
 
             // triangle normal computed by cross product of two edges
             var normal= [
