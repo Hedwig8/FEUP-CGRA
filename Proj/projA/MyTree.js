@@ -3,15 +3,13 @@
 * @constructor
 */
 class MyTree extends CGFobject {
-    constructor(scene, x, z, trunkHeight, trunkRadius, treeTopHeight, treeTopRadius, trunkTexture, treeTopTexture) {
+    constructor(scene, trunkHeight, trunkRadius, treeTopHeight, treeTopRadius, trunkTexture, treeTopTexture) {
         super(scene);
         
         this.scene = scene;
         this.trunkHeight = trunkHeight;
         this.trunkTexture = trunkTexture;
         this.treeTopTexture = treeTopTexture;
-        this.x = x;
-        this.z = z;
 
         this.trunk = new MyCylinder(scene, 16, trunkHeight, trunkRadius);
         this.top = new MyCone(scene, 16, treeTopHeight, treeTopRadius);
@@ -19,8 +17,6 @@ class MyTree extends CGFobject {
     
     display() {
         
-        this.scene.pushMatrix();
-        this.scene.translate(this.x, 0, this.z);
         //Top
         this.scene.pushMatrix();
         this.scene.translate(0, this.trunkHeight, 0);
@@ -34,7 +30,6 @@ class MyTree extends CGFobject {
         this.trunk.display();
         this.scene.popMatrix();
 
-        this.scene.popMatrix();
     }
 }
 
