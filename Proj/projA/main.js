@@ -15,6 +15,9 @@ serialInclude(['../lib/CGF.js',
                 'MyHouse.js',
                 'MyTreeGroupPatch.js',
                 'MyTreeRowPatch.js',
+                'MyCubeMap.js',
+                'MyVoxelHill.js',
+                'MyUnitCube.js',
 
 main=function()
 {

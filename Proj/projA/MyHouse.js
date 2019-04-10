@@ -12,7 +12,7 @@ class MyHouse extends CGFobject {
         this.roofTexture = roofTexture;
         this.pilarsTexture = pilarsTexture;
 
-        this.base = new MyUnitCubeQuad(this.scene, baseTexture);
+        this.base = new MyUnitCube(this.scene, baseTexture);
         this.roof = new MyPyramid(this.scene, 4, 2);
         this.pilars = new MyPrism(this.scene, 10, 0.1, 1);
     }

@@ -72,6 +72,8 @@ class MyScene extends CGFscene {
         this.tree = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
         
         //Objects connected to MyInterface
+        this.displayAxis = true;
+        this.scaleFactor = 1.0;
         
     }
     initLights() {
@@ -101,17 +103,23 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        if(this.displayAxis)
+            this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
 
+        this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         //this.tree.display();
         this.house.display();
         //this.roofMaterial.apply();
 
+
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }

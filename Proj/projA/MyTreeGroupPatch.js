@@ -8,17 +8,11 @@ class MyTreeGroupPatch extends CGFobject {
         this.scene = scene;
         this.treePositions = [];
 
-        /*for (var i = 0; i < 3; i++) {
-            for(var j = 0; j < 3; j++) {
-                this.trees.push(new MyTree(this.scene, i*2+Math.random()-0.5, j*2+Math.random()-0.5, trunkHeight, trunkRadius, treeTopHeight, treeTopRadius, trunkTexture, topTexture));
-            }
-        }*/
-
         this.tree=new MyTree(this.scene, trunkHeight, trunkRadius, treeTopHeight, treeTopRadius, trunkTexture, topTexture);
 
         for(var i = 0; i < 3; i++)
             for(var j = 0; j<3; j++)
-                this.treePositions.push(i*2+Math.random()-0.5, j*2+Math.random()-0.5);
+                this.treePositions.push(i*3+Math.random()-0.5, j*3+Math.random()-0.5);
     }
     display() {
         for(var i = 0; i < this.treePositions.length; i=i+2) {
