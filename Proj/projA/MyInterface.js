@@ -16,6 +16,9 @@ class MyInterface extends CGFinterface {
         
         var obj = this;
 
+        this.gui.add(this.scene, 'displayAxis').name("Display Axis");
+        //this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name("Scale");
+
         return true;
     }
 }

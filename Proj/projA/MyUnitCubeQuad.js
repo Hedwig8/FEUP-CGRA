@@ -4,14 +4,13 @@
  * @param scene - Reference to MyScene object
  */
 class MyUnitCubeQuad extends CGFobject {
-    constructor(scene, frontTexture, sideTexture) {
+    constructor(scene, topTexture, sideTexture) {
         super(scene);
 
         this.scene = scene;
-        this.frontTexture = frontTexture;
+        this.topTexture = topTexture;
         this.sideTexture = sideTexture;
         this.quad = new MyQuad(this.scene);
-
     }
 
     display() {
@@ -26,7 +25,7 @@ class MyUnitCubeQuad extends CGFobject {
 
         //+x
         this.scene.pushMatrix();
-        this.frontTexture.apply();
+        this.sideTexture.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.translate(0.5, 0, 0);
         this.scene.rotate(Math.PI / 2.0, 0, 1, 0);
@@ -35,6 +34,8 @@ class MyUnitCubeQuad extends CGFobject {
 
         //+y
         this.scene.pushMatrix();
+        this.topTexture.apply();
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.translate(0, 0.5, 0);
         this.scene.rotate(-Math.PI / 2.0, 1, 0, 0);
         this.quad.display();
@@ -60,6 +61,8 @@ class MyUnitCubeQuad extends CGFobject {
         
         //-y
         this.scene.pushMatrix();
+        this.sideTexture.apply();
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.translate(0, -0.5, 0);
         this.scene.rotate(Math.PI / 2.0, 1, 0, 0);
         this.quad.display();

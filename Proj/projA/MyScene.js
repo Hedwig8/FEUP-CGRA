@@ -28,7 +28,7 @@ class MyScene extends CGFscene {
         this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.treeTopMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.treeTopMaterial.setShininess(10.0);
-        this.treeTopMaterial.loadTexture('tangram.png');
+        this.treeTopMaterial.loadTexture('images/grass.jpg');
         this.treeTopMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.trunkMaterial = new CGFappearance(this);
@@ -36,7 +36,7 @@ class MyScene extends CGFscene {
         this.trunkMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.trunkMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.trunkMaterial.setShininess(10.0);
-        this.trunkMaterial.loadTexture('tangram.png');
+        this.trunkMaterial.loadTexture('images/treeTrunk.png');
         this.trunkMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //House Materials
@@ -45,7 +45,7 @@ class MyScene extends CGFscene {
         this.frontMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.frontMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.frontMaterial.setShininess(10.0);
-        this.frontMaterial.loadTexture('houseWall.png');
+        this.frontMaterial.loadTexture('images/houseWall.png');
         this.frontMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.roofMaterial = new CGFappearance(this);
@@ -53,7 +53,7 @@ class MyScene extends CGFscene {
         this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.roofMaterial.setShininess(10.0);
-        this.roofMaterial.loadTexture('roof.png');
+        this.roofMaterial.loadTexture('images/roof.png');
         this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.pilaresMaterial = new CGFappearance(this);
@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
         this.pilaresMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.pilaresMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.pilaresMaterial.setShininess(10.0);
-        this.pilaresMaterial.loadTexture('pilar.png');
+        this.pilaresMaterial.loadTexture('images/pilar.png');
         this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //Terrain material
@@ -70,11 +70,30 @@ class MyScene extends CGFscene {
         this.terrainMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.terrainMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.terrainMaterial.setShininess(10.0);
-        this.terrainMaterial.loadTexture('grass.jpg');
+        this.terrainMaterial.loadTexture('images/grass.jpg');
         this.terrainMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        //Hills materials
+        this.sideCubeTexture = new CGFappearance(this);
+        this.sideCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sideCubeTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.sideCubeTexture.setSpecular(0.1, 0.1, 0.1, 1);
+        this.sideCubeTexture.setShininess(10.0);
+        this.sideCubeTexture.loadTexture('images/mineSide.png');
+        this.sideCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.topCubeTexture = new CGFappearance(this);
+        this.topCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.topCubeTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.topCubeTexture.setSpecular(0.1, 0.1, 0.1, 1);
+        this.topCubeTexture.setShininess(10.0);
+        this.topCubeTexture.loadTexture('images/mineTop.png');
+        this.topCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+
+        //this.skybox = new MyCubeMap(this);
 
         this.terrainSize = 20;
         var terrainCoords = [
@@ -84,11 +103,16 @@ class MyScene extends CGFscene {
             1 / this.terrainSize, 0
         ]
         this.terrain = new MyQuad(this, terrainCoords);
-        this.house = new MyHouse(this, this.frontMaterial, this.frontMaterial, this.roofMaterial, this.pilaresMaterial);
-        this.tree = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
-        this.hill = new MyVoxelHill(this, 4, this.frontMaterial, this.frontMaterial);
+
+        this.house = new MyHouse(this, this.treeTopMaterial, this.frontMaterial, this.roofMaterial, this.pilaresMaterial);
+        this.treeRow = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
+        this.treeGroup = new MyTreeGroupPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
+        this.hill = new MyVoxelHill(this, 4, this.topCubeTexture, this.sideCubeTexture);
         
+      
         //Objects connected to MyInterface
+        this.displayAxis = true;
+        this.scaleFactor = 1.0;
         
     }
     initLights() {
@@ -118,12 +142,16 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        if(this.displayAxis)
+            this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+           
+        //Skybox
+        //this.skybox.display();
 
         //Terrain
         this.pushMatrix();
@@ -132,10 +160,12 @@ class MyScene extends CGFscene {
         this.terrainMaterial.apply();
         this.terrain.display();
         this.popMatrix();
-
+        
         //House
         this.pushMatrix();
         this.translate(0, 0.5, 0);
+        this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor); 
         this.house.display();
         this.popMatrix();
 
@@ -144,6 +174,21 @@ class MyScene extends CGFscene {
         this.translate(5, 0.5, 5);
         this.hill.display();
         this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(5, 0.5, 5);
+        this.hill.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(5, 0.5, 5);
+        this.hill.display();
+        this.popMatrix();
+
+        //Trees
+        this.pushMatrix();
+        this.translate(-5, 0, -5);
+        this.treeGroup.display();
 
         // ---- END Primitive drawing section
     }

@@ -32,7 +32,10 @@ class MyHouse extends CGFobject {
         this.scene.popMatrix();
 
         //base
+        this.scene.pushMatrix();
+        this.scene.rotate(-Math.PI / 2, 0, 0, 1);
         this.base.display();
+        this.scene.popMatrix();
 
         //pilars
         var alphaAng = 2 * Math.PI / this.roofSlices;
