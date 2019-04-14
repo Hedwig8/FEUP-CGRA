@@ -40,20 +40,20 @@ class MyScene extends CGFscene {
         this.trunkMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //House Materials
-        this.baseMaterial = new CGFappearance(this);
-        this.baseMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.baseMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.baseMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.baseMaterial.setShininess(10.0);
-        this.baseMaterial.loadTexture('tangram.png');
-        this.baseMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        this.frontMaterial = new CGFappearance(this);
+        this.frontMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.frontMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.frontMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.frontMaterial.setShininess(10.0);
+        this.frontMaterial.loadTexture('houseWall.png');
+        this.frontMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.roofMaterial = new CGFappearance(this);
         this.roofMaterial.setAmbient(0.1, 0.1, 0.1, 1);
         this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.roofMaterial.setShininess(10.0);
-        this.roofMaterial.loadTexture('tangram.png');
+        this.roofMaterial.loadTexture('roof.png');
         this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.pilaresMaterial = new CGFappearance(this);
@@ -61,15 +61,32 @@ class MyScene extends CGFscene {
         this.pilaresMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.pilaresMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.pilaresMaterial.setShininess(10.0);
-        this.pilaresMaterial.loadTexture('tangram.png');
+        this.pilaresMaterial.loadTexture('pilar.png');
         this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Terrain material
+        this.terrainMaterial = new CGFappearance(this);
+        this.terrainMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.terrainMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.terrainMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.terrainMaterial.setShininess(10.0);
+        this.terrainMaterial.loadTexture('grass.jpg');
+        this.terrainMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
 
-        this.singleTree = new MyTree(this, 2, 1, 3, 2, this.trunkMaterial, this.treeTopMaterial);
-        this.house = new MyHouse(this, this.baseMaterial, this.roofMaterial, this.pilaresMaterial);
+        this.terrainSize = 20;
+        var terrainCoords = [
+            0, 1,
+            1 / this.terrainSize, 1,
+            0, 0,
+            1 / this.terrainSize, 0
+        ]
+        this.terrain = new MyQuad(this, terrainCoords);
+        this.house = new MyHouse(this, this.frontMaterial, this.frontMaterial, this.roofMaterial, this.pilaresMaterial);
         this.tree = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
+        this.hill = new MyVoxelHill(this, 4, this.frontMaterial, this.frontMaterial);
         
         //Objects connected to MyInterface
         
@@ -108,9 +125,25 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        //this.tree.display();
+        //Terrain
+        this.pushMatrix();
+        this.scale(this.terrainSize, 1, this.terrainSize);
+        this.rotate(-(Math.PI / 2), 1, 0, 0);
+        this.terrainMaterial.apply();
+        this.terrain.display();
+        this.popMatrix();
+
+        //House
+        this.pushMatrix();
+        this.translate(0, 0.5, 0);
         this.house.display();
-        //this.roofMaterial.apply();
+        this.popMatrix();
+
+        //Hills
+        this.pushMatrix();
+        this.translate(5, 0.5, 5);
+        this.hill.display();
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }

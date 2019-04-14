@@ -3,9 +3,10 @@
  * @constructor
  */
 class MyVoxelHill extends CGFobject {
-    constructor(scene, levels) {
+    constructor(scene, levels, topTexture, sideTexture) {
         super(scene);
-        this.cube = new MyUnitCubeQuad(this.scene);
+        this.scene = scene;
+        this.cube = new MyUnitCubeQuad(this.scene, topTexture, sideTexture);
         this.levels = levels;
         
     }
@@ -28,10 +29,14 @@ class MyVoxelHill extends CGFobject {
                 this.scene.pushMatrix();
                 this.scene.translate(this.levels-i, this.levels-i, this.levels-i+j);
                 this.cube.display();
-                this.translate(side, 0, 0);
+                this.scene.translate(side, 0, 0);
                 this.cube.display();
                 this.scene.popMatrix();
             }
         }
+    }
+
+    updateLevels(levels) {
+        this.levels = levels;
     }
 }

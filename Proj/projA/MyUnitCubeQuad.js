@@ -4,10 +4,11 @@
  * @param scene - Reference to MyScene object
  */
 class MyUnitCubeQuad extends CGFobject {
-    constructor(scene, sideTexture) {
+    constructor(scene, frontTexture, sideTexture) {
         super(scene);
 
         this.scene = scene;
+        this.frontTexture = frontTexture;
         this.sideTexture = sideTexture;
         this.quad = new MyQuad(this.scene);
 
@@ -25,7 +26,7 @@ class MyUnitCubeQuad extends CGFobject {
 
         //+x
         this.scene.pushMatrix();
-        this.sideTexture.apply();
+        this.frontTexture.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.scene.translate(0.5, 0, 0);
         this.scene.rotate(Math.PI / 2.0, 0, 1, 0);
