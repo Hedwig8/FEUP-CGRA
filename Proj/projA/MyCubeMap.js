@@ -5,7 +5,6 @@ class MyCubeMap extends CGFobject{
         this.scene = scene;
         this.initBuffers();
 
-
     }
     initBuffers() {
         this.vertices = [

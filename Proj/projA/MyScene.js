@@ -110,7 +110,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
 
-        //this.skybox = new MyCubeMap(this);
+        this.skybox = new MyCubeMap(this);
 
         this.terrainSize = 50;
         var terrainRepeats = 6;
@@ -171,8 +171,16 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
            
+        this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         //Skybox
-        //this.skybox.display();
+        this.pushMatrix();
+        this.translate(0, 9.999, 0);
+        this.scale(20, 20, 20);
+        this.skymapText.apply();
+        this.skybox.display();
+        this.popMatrix();
 
         //Terrain
         this.pushMatrix();
@@ -191,17 +199,17 @@ class MyScene extends CGFscene {
 
         //Hills
         this.pushMatrix();
-        this.translate(-5, 0.5, 5);
+        this.translate(5, 0, 5);
         this.hill.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-18, 0.5, -5);
+        this.translate(-18, 0, -5);
         this.hill.display(3);
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(10, 0.5, -15);
+        this.translate(10, 0, -15);
         this.hill.display(5);
         this.popMatrix();
 
@@ -241,6 +249,7 @@ class MyScene extends CGFscene {
 
         //Tests
 
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }
