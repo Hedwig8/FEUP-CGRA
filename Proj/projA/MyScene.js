@@ -90,17 +90,27 @@ class MyScene extends CGFscene {
         this.topCubeTexture.loadTexture('images/mineTop.png');
         this.topCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
+        //SkyMap Texture
+        this.skymapText = new CGFappearance(this);
+        this.skymapText.setAmbient(0.1, 0.1, 0.1, 1);
+        this.skymapText.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.skymapText.setSpecular(0.1, 0.1, 0.1, 1);
+        this.skymapText.setShininess(1.0);
+        this.skymapText.loadTexture('images/forest_skybox_day1.jpg');
+        this.skymapText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
 
-        //this.skybox = new MyCubeMap(this);
+        this.skybox = new MyCubeMap(this);
 
         this.terrainSize = 20;
         var terrainCoords = [
-            0, 1,
-            1 / this.terrainSize, 1,
             0, 0,
-            1 / this.terrainSize, 0
+            this.terrainSize, 0,
+            0, this.terrainSize,
+            this.terrainSize, this.terrainSize
         ]
         this.terrain = new MyQuad(this, terrainCoords);
 
@@ -150,8 +160,16 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
            
+        this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         //Skybox
-        //this.skybox.display();
+        this.pushMatrix();
+        this.translate(0, 9.999, 0);
+        this.scale(20, 20, 20);
+        this.skymapText.apply();
+        this.skybox.display();
+        this.popMatrix();
 
         //Terrain
         this.pushMatrix();
@@ -171,25 +189,28 @@ class MyScene extends CGFscene {
 
         //Hills
         this.pushMatrix();
-        this.translate(5, 0.5, 5);
+        this.translate(5, 0, 5);
         this.hill.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(5, 0.5, 5);
+        this.translate(5, 0, 5);
         this.hill.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(5, 0.5, 5);
+        this.translate(5, 0, 5);
         this.hill.display();
         this.popMatrix();
 
         //Trees
         this.pushMatrix();
-        this.translate(-5, 0, -5);
+        this.translate(-8, 0, -8);
         this.treeGroup.display();
+        this.popMatrix();
 
+
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }
