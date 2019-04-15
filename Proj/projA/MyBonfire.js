@@ -3,41 +3,36 @@
 * @constructor
 */
 class MyBonfire extends CGFobject {
-    constructor(scene, woodTexture, fireTexture) {
+    constructor(scene, stoneTexture, fireTexture) {
         super(scene);
 
         this.scene = scene;
 
-        this.woodenStick = new MyCylinder(this.scene, 5, 0.1, 0.05);
-        this.fire = new MyPyramid(this.scene, 5, 2);
+        this.fireTexture = fireTexture;
+
+        this.stone = new MyUnitCubeQuad(this.scene, stoneTexture, stoneTexture);
+        this.fire = new MyCone(this.scene, 10, 0.75, 0.5);
     }
 
     display() {
 
-        //roof
+        //Fire
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.5, 0);
-        this.roofTexture.apply();
+        this.fireTexture.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        this.roof.display();
+        this.fire.display();
         this.scene.popMatrix();
 
-        //base
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.base.display();
-        this.scene.popMatrix();
+        //Stones
+        var numStones = 8;
+        var alphaAng = 2 * Math.PI / numStones;
 
-        //pilars
-        var alphaAng = 2 * Math.PI / this.roofSlices;
-
-        for (var i = 0; i < this.roofSlices; i++) {
+        for (var i = 0; i < numStones; i++) {
             var ang = i * alphaAng
             this.scene.pushMatrix();
-            this.pilarsTexture.apply();
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-            this.scene.translate(Math.cos(ang), -0.5, Math.sin(ang));
-            this.pilars.display();
+            this.scene.translate(Math.cos(ang) * 0.5, 0.125, Math.sin(ang) * 0.5);
+            this.scene.scale(0.25, 0.25, 0.25);
+            this.stone.display();
             this.scene.popMatrix();
         }
     }

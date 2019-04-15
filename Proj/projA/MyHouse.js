@@ -39,15 +39,17 @@ class MyHouse extends CGFobject {
         //pilars
         var alphaAng = 2 * Math.PI / this.roofSlices;
 
+        this.scene.pushMatrix();
+        this.pilarsTexture.apply();
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         for (var i = 0; i < this.roofSlices; i++) {
             var ang = i * alphaAng
             this.scene.pushMatrix();
-            this.pilarsTexture.apply();
-            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
             this.scene.translate(Math.cos(ang), -0.5, Math.sin(ang));
             this.pilars.display();
             this.scene.popMatrix();
         }
+        this.scene.popMatrix();
     }
 }
 

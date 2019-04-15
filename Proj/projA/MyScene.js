@@ -28,16 +28,16 @@ class MyScene extends CGFscene {
         this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.treeTopMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.treeTopMaterial.setShininess(10.0);
-        this.treeTopMaterial.loadTexture('images/grass.jpg');
+        this.treeTopMaterial.loadTexture('images/treeTopTexture.png');
         this.treeTopMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-        this.trunkMaterial = new CGFappearance(this);
-        this.trunkMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.trunkMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.trunkMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.trunkMaterial.setShininess(10.0);
-        this.trunkMaterial.loadTexture('images/treeTrunk.png');
-        this.trunkMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        this.woodMaterial = new CGFappearance(this);
+        this.woodMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.woodMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.woodMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.woodMaterial.setShininess(10.0);
+        this.woodMaterial.loadTexture('images/woodTexture.png');
+        this.woodMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //House Materials
         this.houseFrontMaterial = new CGFappearance(this);
@@ -107,12 +107,30 @@ class MyScene extends CGFscene {
         this.skymapText.loadTexture('images/forest_skybox_day1.jpg');
         this.skymapText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
+        //Bonfire
+        this.fireMaterial = new CGFappearance(this);
+        this.fireMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.fireMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.fireMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.fireMaterial.setShininess(1.0);
+        this.fireMaterial.loadTexture('images/fireTexture.png');
+        this.fireMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.stoneMaterial = new CGFappearance(this);
+        this.stoneMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.stoneMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.stoneMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.stoneMaterial.setShininess(1.0);
+        this.stoneMaterial.loadTexture('images/stoneTexture.png');
+        this.stoneMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
 
         this.skybox = new MyCubeMap(this);
 
-        this.terrainSize = 50;
+        this.terrainSize = 70;
         var terrainRepeats = 6;
         var terrainCoords = [
             0, this.terrainSize / terrainRepeats,
@@ -123,27 +141,35 @@ class MyScene extends CGFscene {
         this.terrain = new MyQuad(this, terrainCoords);
 
         this.house = new MyHouse(this, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
-        this.treeRow = new MyTreeRowPatch(this, 0.5, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
-        this.treeGroup = new MyTreeGroupPatch(this, 1, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
-        this.treeRow = new MyTreeRowPatch(this, 1, 0.25, 1.5, 0.75, this.trunkMaterial, this.treeTopMaterial);
+        this.treeRow = new MyTreeRowPatch(this, 1, 0.25, 1.5, 0.75, this.woodMaterial, this.treeTopMaterial);
+        this.treeGroup = new MyTreeGroupPatch(this, 1, 0.25, 1.5, 0.75, this.woodMaterial, this.treeTopMaterial);
         this.hill = new MyVoxelHill(this, 4, this.topCubeTexture, this.sideCubeTexture);
+        this.bonfire = new MyBonfire(this, this.stoneMaterial, this.fireMaterial)
         
-        //Tests
-
-      
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1.0;
+        this.lightBonfire = false;
         
     }
     initLights() {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        //Day Light
+        this.lights[0].setPosition(15, 25, 15, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
-        this.lights[0].update();
+
+        //Night Light
+        this.lights[1].setPosition(15, 2, 5, 1);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].disable();
+
+        //BonfireLight
+        this.lights[2].setPosition(2, 0.76, -2, 1);
+        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].disable();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(25, 40, 40), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -169,6 +195,11 @@ class MyScene extends CGFscene {
         //Apply default appearance
         this.setDefaultAppearance();
 
+        //Update lights
+        this.lights[0].update();
+        this.lights[1].update();
+        this.lights[2].update();
+
         // ---- BEGIN Primitive drawing section
            
         this.pushMatrix();
@@ -177,7 +208,7 @@ class MyScene extends CGFscene {
         //Skybox
         this.pushMatrix();
         this.translate(0, 9.999, 0);
-        this.scale(20, 20, 20);
+        this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
         this.skymapText.apply();
         this.skybox.display();
         this.popMatrix();
@@ -199,17 +230,17 @@ class MyScene extends CGFscene {
 
         //Hills
         this.pushMatrix();
-        this.translate(5, 0, 5);
+        this.translate(-5, 0.5, 5);
         this.hill.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-18, 0, -5);
+        this.translate(-18, 0.5, -5);
         this.hill.display(3);
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(10, 0, -15);
+        this.translate(10, 0.5, -15);
         this.hill.display(5);
         this.popMatrix();
 
@@ -247,7 +278,11 @@ class MyScene extends CGFscene {
         this.treeRow.display();
         this.popMatrix();
 
-        //Tests
+        //Bonfire
+        this.pushMatrix();
+        this.translate(2, 0, -2);
+        this.bonfire.display();
+        this.popMatrix();
 
         this.popMatrix();
         // ---- END Primitive drawing section

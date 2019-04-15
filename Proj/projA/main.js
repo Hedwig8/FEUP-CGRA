@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js',
                 'MyVoxelHill.js',
                 'MyCubeMap.js',
                 'MyUnitCube.js',
+                'MyBonfire.js',
 
 main=function()
 {
