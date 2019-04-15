@@ -4,62 +4,7 @@ class MyCubeMap extends CGFobject{
 
         this.scene = scene;
         this.initBuffers();
-/
-        this.texture = new CGFappearance(this.scene);
-        this.texture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.texture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.texture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.texture.setShininess(10.0);
-        this.texture.loadTexture('images/skymap1.jpg');
-        this.texture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
-        this.topSide = new CGFappearance(this.scene);
-        this.topSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.topSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.topSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.topSide.setShininess(10.0);
-        this.topSide.loadTexture('images/skymap1.jpg');
-        this.topSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.downSide = new CGFappearance(this.scene);
-        this.downSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.downSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.downSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.downSide.setShininess(10.0);
-        this.downSide.loadTexture('images/skymap1.jpg');
-        this.downSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.rightSide = new CGFappearance(this.scene);
-        this.rightSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.rightSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.rightSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.rightSide.setShininess(10.0);
-        this.rightSide.loadTexture('images/skymap1.jpg');
-        this.rightSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.leftSide = new CGFappearance(this.scene);
-        this.leftSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.leftSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.leftSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.leftSide.setShininess(10.0);
-        this.leftSide.loadTexture('images/skymap1.jpg');
-        this.leftSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.frontSide = new CGFappearance(this.scene);
-        this.frontSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.frontSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.frontSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.frontSide.setShininess(10.0);
-        this.frontSide.loadTexture('images/skymap1.jpg');
-        this.frontSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.backSide = new CGFappearance(this.scene);
-        this.backSide.setAmbient(0.1, 0.1, 0.1, 1);
-        this.backSide.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.backSide.setSpecular(0.1, 0.1, 0.1, 1);
-        this.backSide.setShininess(10.0);
-        this.backSide.loadTexture('images/skymap1.jpg');
-        this.backSide.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     }
     initBuffers() {

@@ -1,23 +1,15 @@
 /**
-* MyHouse
+* MyBonfire
 * @constructor
 */
-class MyHouse extends CGFobject {
-    constructor(scene, frontTexture, sideTexture, roofTexture, pilarsTexture) {
+class MyBonfire extends CGFobject {
+    constructor(scene, woodTexture, fireTexture) {
         super(scene);
 
         this.scene = scene;
 
-        this.frontTexture = frontTexture;
-        this.sideTexture = sideTexture;
-        this.roofTexture = roofTexture;
-        this.pilarsTexture = pilarsTexture;
-
-        this.roofSlices = 6;
-
-        this.base = new MyUnitCubeQuad(this.scene, frontTexture, sideTexture);
-        this.roof = new MyPyramid(this.scene, this.roofSlices, 2, 1);
-        this.pilars = new MyPrism(this.scene, 10, 0.1, 1);
+        this.woodenStick = new MyCylinder(this.scene, 5, 0.1, 0.05);
+        this.fire = new MyPyramid(this.scene, 5, 2);
     }
 
     display() {

@@ -3,10 +3,11 @@
 * @constructor
 */
 class MyPyramid extends CGFobject {
-    constructor(scene, slices, baseWidth) {
+    constructor(scene, slices, baseWidth, height) {
         super(scene);
         this.slices = slices;
         this.baseWidth = baseWidth;
+        this.height = height;
         this.initBuffers();
     }
     initBuffers() {
@@ -29,7 +30,7 @@ class MyPyramid extends CGFobject {
             var ca = Math.cos(ang) * baseRadius;
             var caa = Math.cos(ang + alphaAng) * baseRadius;
 
-            this.vertices.push(0,1,0);
+            this.vertices.push(0,this.height,0);
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
 

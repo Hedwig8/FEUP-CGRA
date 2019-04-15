@@ -12,7 +12,7 @@ class MyTreeGroupPatch extends CGFobject {
 
         for(var i = 0; i < 3; i++)
             for(var j = 0; j<3; j++)
-                this.treePositions.push(i*3+Math.random()-0.5, j*3+Math.random()-0.5);
+                this.treePositions.push(i*2+Math.random()-0.5, j*2+Math.random()-0.5);
     }
     display() {
         for(var i = 0; i < this.treePositions.length; i=i+2) {

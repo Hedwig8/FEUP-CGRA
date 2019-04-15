@@ -10,16 +10,20 @@ class MyVoxelHill extends CGFobject {
         this.levels = levels;
         
     }
-    display() {        
-        
-        for(var i = this.levels; i >0; i--) {
+    display(levels) {
+
+        var lvls;
+        if (levels == undefined) lvls = this.levels;
+        else lvls = levels;
+
+        for(var i = lvls; i >0; i--) {
             var side = i*2-1;
             //display x-axis parallel sides
             for(var j = 0; j < side; j++) {
                 this.scene.pushMatrix();
-                this.scene.translate(this.levels-i+j, this.levels-i, this.levels-i);
+                this.scene.translate(lvls - i + j, lvls - i, lvls - i);
                 this.cube.display(); 
-                this.scene.translate(0, 0, side-1);
+                this.scene.translate(0, 0, side - 1);
                 this.cube.display();
                 this.scene.popMatrix();
             }
@@ -27,16 +31,12 @@ class MyVoxelHill extends CGFobject {
             //display z-axis parallel sides
             for(var j = 0; j < side; j++) {
                 this.scene.pushMatrix();
-                this.scene.translate(this.levels-i, this.levels-i, this.levels-i+j);
+                this.scene.translate(lvls - i, lvls - i, lvls - i + j);
                 this.cube.display();
                 this.scene.translate(side, 0, 0);
                 this.cube.display();
                 this.scene.popMatrix();
             }
         }
-    }
-
-    updateLevels(levels) {
-        this.levels = levels;
     }
 }
