@@ -48,15 +48,6 @@ class MyCone extends CGFobject {
         this.normals.push(0, 1, 0);
         this.texCoords.push(0.5, 0.5);
 
-        this.vertices.push(0, this.height, 0);
-        this.normals.push(0, 1, 0);
-        this.texCoords.push(0.5, 0.5);
-        
-        //Repeating first vertex
-        this.vertices.push(this.radius, 0, 0);
-        this.normals.push(this.radius, this.radius * Math.cos(Math.PI / 4.0), 0);
-        this.texCoords.push(0, 1);
-
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
