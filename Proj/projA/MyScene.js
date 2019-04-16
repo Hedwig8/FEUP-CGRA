@@ -53,7 +53,7 @@ class MyScene extends CGFscene {
     }
     initLights() {
         //Day Light
-        this.lights[0].setPosition(15, 25, 15, 1);
+        this.lights[0].setPosition(0, 25, 0, 1);
         this.lights[0].setDiffuse(1.0, 0.7, 0.5, 1.0);
         this.lights[0].setConstantAttenuation(0.0);
         this.lights[0].setLinearAttenuation(0.01);
@@ -61,7 +61,7 @@ class MyScene extends CGFscene {
         this.lights[0].disable();
 
         //Night Light
-        this.lights[1].setPosition(-10, 25, 20, 1);
+        this.lights[1].setPosition(0, 25, 0, 1);
         this.lights[1].setDiffuse(0.5, 0.7, 1.0, 1.0);
         this.lights[1].setConstantAttenuation(0.0);
         this.lights[1].setLinearAttenuation(0.05);
@@ -70,7 +70,7 @@ class MyScene extends CGFscene {
 
         //BonfireLight
         this.lights[2].setPosition(-2, 0.76, 2, 1);
-        this.lights[2].setDiffuse(0.9, 0.2, 0.1, 1.0);
+        this.lights[2].setDiffuse(0.8, 0.3, 0.2, 1.0);
         this.lights[2].setConstantAttenuation(0.1);
         this.lights[2].setLinearAttenuation(0.5);
         this.lights[2].setQuadraticAttenuation(0.0);
@@ -236,7 +236,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         //Update bonfire light
-        this.lights[2].setDiffuse(0.9+Math.random()/2-0.25, 0.3+Math.random()/2-0.25, 0.2+Math.random()/4-0.125);
+        this.lights[2].setDiffuse(0.8+Math.random()/2-0.25, 0.3+Math.random()/4-0.125, 0.1+Math.random()/5-0.1);
 
         //Update lights
         this.lights[0].update();
@@ -250,7 +250,6 @@ class MyScene extends CGFscene {
 
         //Skybox
         this.pushMatrix();
-        this.translate(0, 9.999, 0);
         this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
         if(this.ambientLight == 0)
             this.skymapTextDay.apply();
