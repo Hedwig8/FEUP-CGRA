@@ -33,7 +33,7 @@ class MyVoxelHill extends CGFobject {
                 this.scene.pushMatrix();
                 this.scene.translate(lvls - i, lvls - i, lvls - i + j);
                 this.cube.display();
-                this.scene.translate(side, 0, 0);
+                this.scene.translate(side-1, 0, 0);
                 this.cube.display();
                 this.scene.popMatrix();
             }

@@ -99,13 +99,22 @@ class MyScene extends CGFscene {
         this.topCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //SkyMap Texture
-        this.skymapText = new CGFappearance(this);
-        this.skymapText.setAmbient(0.1, 0.1, 0.1, 1);
-        this.skymapText.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.skymapText.setSpecular(0.1, 0.1, 0.1, 1);
-        this.skymapText.setShininess(1.0);
-        this.skymapText.loadTexture('images/forest_skybox_day1.jpg');
-        this.skymapText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        this.skymapTextDay = new CGFappearance(this);
+        this.skymapTextDay.setAmbient(0.1, 0.1, 0.1, 1);
+        this.skymapTextDay.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.skymapTextDay.setSpecular(0.1, 0.1, 0.1, 1);
+        this.skymapTextDay.setShininess(1.0);
+        this.skymapTextDay.loadTexture('images/forest_skybox_day1.jpg');
+        this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.skymapTextNight = new CGFappearance(this);
+        this.skymapTextNight.setAmbient(0.1, 0.1, 0.1, 1);
+        this.skymapTextNight.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.skymapTextNight.setSpecular(0.1, 0.1, 0.1, 1);
+        this.skymapTextNight.setShininess(1.0);
+        this.skymapTextNight.loadTexture('images/forest_skybox_night1.jpg');
+        this.skymapTextNight.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
 
         //Bonfire
         this.fireMaterial = new CGFappearance(this);
@@ -144,32 +153,34 @@ class MyScene extends CGFscene {
         this.treeRow = new MyTreeRowPatch(this, 1, 0.25, 1.5, 0.75, this.woodMaterial, this.treeTopMaterial);
         this.treeGroup = new MyTreeGroupPatch(this, 1, 0.25, 1.5, 0.75, this.woodMaterial, this.treeTopMaterial);
         this.hill = new MyVoxelHill(this, 4, this.topCubeTexture, this.sideCubeTexture);
-        this.bonfire = new MyBonfire(this, this.stoneMaterial, this.fireMaterial)
+        this.bonfire = new MyBonfire(this, this.stoneMaterial, this.fireMaterial);
         
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1.0;
         this.lightBonfire = false;
+        this.ambientLight = -1;
+        this.ambientLight = { '': -1,'Day': 0, 'Night': 1 }; //dropdown
         
     }
     initLights() {
         //Day Light
         this.lights[0].setPosition(15, 25, 15, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].enable();
+        this.lights[0].disable();
 
         //Night Light
-        this.lights[1].setPosition(15, 2, 5, 1);
+        this.lights[1].setPosition(15, 5, 5, 1);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].disable();
 
         //BonfireLight
         this.lights[2].setPosition(2, 0.76, -2, 1);
-        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].setDiffuse(0.9, 0.2, 0.1, 1.0);
         this.lights[2].disable();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(25, 40, 40), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.5, 0.1, 500, vec3.fromValues(45, 25, 45), vec3.fromValues(0, 3, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -192,8 +203,29 @@ class MyScene extends CGFscene {
         if(this.displayAxis)
             this.axis.display();
 
+        if(this.ambientLight == 0) //Day
+        {
+            this.lights[0].enable();
+            this.lights[1].disable();
+            this.lights[2].disable();
+        }
+        else if(this.ambientLight == 1) //Night
+        {
+            this.lights[0].disable();
+            this.lights[1].enable();
+            this.lights[2].enable();
+        }
+        else {
+            this.lights[0].disable();
+            this.lights[1].disable();
+            this.lights[2].disable();
+        }
+
         //Apply default appearance
         this.setDefaultAppearance();
+
+        //Update bonfire light
+        this.lights[2].setDiffuse(0.9+Math.random()/2-0.25, 0.3+Math.random()/2-0.25, 0.2+Math.random()/4-0.125);
 
         //Update lights
         this.lights[0].update();
@@ -209,7 +241,10 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(0, 9.999, 0);
         this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
-        this.skymapText.apply();
+        if(this.ambientLight == 0)
+            this.skymapTextDay.apply();
+        if(this.ambientLight == 1)
+            this.skymapTextNight.apply();
         this.skybox.display();
         this.popMatrix();
 
@@ -242,6 +277,11 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(10, 0.5, -15);
         this.hill.display(5);
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-2, 0.5, 8);
+        this.hill.display(3);
         this.popMatrix();
 
         //TreeGroups
