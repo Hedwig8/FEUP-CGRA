@@ -133,6 +133,14 @@ class MyScene extends CGFscene {
         this.stoneMaterial.loadTexture('images/stoneTexture.png');
         this.stoneMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
+        //Pool
+        this.waterMaterial = new CGFappearance(this);
+        this.waterMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.waterMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.waterMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.waterMaterial.setShininess(1.0);
+        this.waterMaterial.loadTexture('images/waterTexture.png');
+        this.waterMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -154,6 +162,7 @@ class MyScene extends CGFscene {
         this.treeGroup = new MyTreeGroupPatch(this, 1, 0.25, 1.5, 0.75, this.woodMaterial, this.treeTopMaterial);
         this.hill = new MyVoxelHill(this, 4, this.topCubeTexture, this.sideCubeTexture);
         this.bonfire = new MyBonfire(this, this.stoneMaterial, this.fireMaterial);
+        this.pool = new MyPool(this, 6, 4, this.stoneMaterial, this.waterMaterial);
         
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -170,12 +179,12 @@ class MyScene extends CGFscene {
         this.lights[0].disable();
 
         //Night Light
-        this.lights[1].setPosition(15, 5, 5, 1);
+        this.lights[1].setPosition(15, 25, 15, 1);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].disable();
 
         //BonfireLight
-        this.lights[2].setPosition(2, 0.76, -2, 1);
+        this.lights[2].setPosition(-2, 0.76, 2, 1);
         this.lights[2].setDiffuse(0.9, 0.2, 0.1, 1.0);
         this.lights[2].disable();
     }
@@ -320,8 +329,14 @@ class MyScene extends CGFscene {
 
         //Bonfire
         this.pushMatrix();
-        this.translate(2, 0, -2);
+        this.translate(-2, 0, 2);
         this.bonfire.display();
+        this.popMatrix();
+
+        //Pool
+        this.pushMatrix();
+        this.translate(12, 0, 0);
+        this.pool.display();
         this.popMatrix();
 
         this.popMatrix();

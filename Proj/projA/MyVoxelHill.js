@@ -16,8 +16,8 @@ class MyVoxelHill extends CGFobject {
         if (levels == undefined) lvls = this.levels;
         else lvls = levels;
 
-        for(var i = lvls; i >0; i--) {
-            var side = i*2-1;
+        for(var i = lvls; i > 0; i--) {
+            var side = i * 2 - 1;
             //display x-axis parallel sides
             for(var j = 0; j < side; j++) {
                 this.scene.pushMatrix();

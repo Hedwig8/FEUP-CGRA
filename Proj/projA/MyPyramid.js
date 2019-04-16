@@ -35,9 +35,9 @@ class MyPyramid extends CGFobject {
             this.vertices.push(caa, 0, -saa);
 
             //Using half of the texture to get a triangle for each face
-            this.texCoords.push(0, 1);
-            this.texCoords.push(1, 1);
             this.texCoords.push(0, 0);
+            this.texCoords.push(0, 1);
+            this.texCoords.push(1, 0);
 
             // triangle normal computed by cross product of two edges
             var normal= [
