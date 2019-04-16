@@ -21,7 +21,7 @@ class MyPool extends CGFobject {
         //Water
         this.scene.pushMatrix();
         this.waterTexture.apply();
-        this.scene.translate(0, 1, 0);
+        this.scene.translate(0, 0.4, 0);
         this.scene.scale(this.length, 1, this.width);
         this.scene.rotate(-(Math.PI / 2), 1, 0, 0);
         this.water.display();
@@ -31,25 +31,25 @@ class MyPool extends CGFobject {
         for (var i = 0; i < this.width + 2; i++) {
 
             this.scene.pushMatrix();
-            this.scene.translate(-(0.5 + this.length / 2), 0.5, i - (0.5 + this.width / 2));
+            this.scene.translate(-(0.5 + this.length / 2), 0.1, i - (0.5 + this.width / 2));
             this.stone.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
-            this.scene.translate(0.5 + this.length / 2, 0.5, i - (0.5 + this.width / 2));
+            this.scene.translate(0.5 + this.length / 2, 0.1, i - (0.5 + this.width / 2));
             this.stone.display();
             this.scene.popMatrix();
         }
 
-        for (var i = 0; i < this.length + 2; i++) {
+        for (var i = 1; i < this.length + 1; i++) {
 
             this.scene.pushMatrix();
-            this.scene.translate(i - (0.5 + this.length / 2), 0.5, - (0.5 + this.width / 2));
+            this.scene.translate(i - (0.5 + this.length / 2), 0.1, - (0.5 + this.width / 2));
             this.stone.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
-            this.scene.translate(i - (0.5 + this.length / 2), 0.5, 0.5 + this.width / 2);
+            this.scene.translate(i - (0.5 + this.length / 2), 0.1, 0.5 + this.width / 2);
             this.stone.display();
             this.scene.popMatrix();
         }

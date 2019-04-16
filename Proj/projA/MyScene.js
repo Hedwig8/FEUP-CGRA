@@ -20,127 +20,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        //Applied Materials
-
-        //Tree materials
-        this.treeTopMaterial = new CGFappearance(this);
-        this.treeTopMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.treeTopMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.treeTopMaterial.setShininess(10.0);
-        this.treeTopMaterial.loadTexture('images/treeTopTexture.png');
-        this.treeTopMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.woodMaterial = new CGFappearance(this);
-        this.woodMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.woodMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.woodMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.woodMaterial.setShininess(10.0);
-        this.woodMaterial.loadTexture('images/woodTexture.png');
-        this.woodMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        //House Materials
-        this.houseFrontMaterial = new CGFappearance(this);
-        this.houseFrontMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.houseFrontMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.houseFrontMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.houseFrontMaterial.setShininess(10.0);
-        this.houseFrontMaterial.loadTexture('images/houseDoor.png');
-        this.houseFrontMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.houseWallMaterial = new CGFappearance(this);
-        this.houseWallMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.houseWallMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.houseWallMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.houseWallMaterial.setShininess(10.0);
-        this.houseWallMaterial.loadTexture('images/houseWall.png');
-        this.houseWallMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.roofMaterial = new CGFappearance(this);
-        this.roofMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.roofMaterial.setShininess(10.0);
-        this.roofMaterial.loadTexture('images/roof.png');
-        this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.pilaresMaterial = new CGFappearance(this);
-        this.pilaresMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.pilaresMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.pilaresMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.pilaresMaterial.setShininess(10.0);
-        this.pilaresMaterial.loadTexture('images/pilar.png');
-        this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        //Terrain material
-        this.terrainMaterial = new CGFappearance(this);
-        this.terrainMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.terrainMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.terrainMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.terrainMaterial.setShininess(10.0);
-        this.terrainMaterial.loadTexture('images/grass.jpg');
-        this.terrainMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
-        //Hills materials
-        this.sideCubeTexture = new CGFappearance(this);
-        this.sideCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.sideCubeTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.sideCubeTexture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.sideCubeTexture.setShininess(10.0);
-        this.sideCubeTexture.loadTexture('images/mineSide.png');
-        this.sideCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.topCubeTexture = new CGFappearance(this);
-        this.topCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
-        this.topCubeTexture.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.topCubeTexture.setSpecular(0.1, 0.1, 0.1, 1);
-        this.topCubeTexture.setShininess(10.0);
-        this.topCubeTexture.loadTexture('images/mineTop.png');
-        this.topCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        //SkyMap Texture
-        this.skymapTextDay = new CGFappearance(this);
-        this.skymapTextDay.setAmbient(0.1, 0.1, 0.1, 1);
-        this.skymapTextDay.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.skymapTextDay.setSpecular(0.1, 0.1, 0.1, 1);
-        this.skymapTextDay.setShininess(1.0);
-        this.skymapTextDay.loadTexture('images/forest_skybox_day1.jpg');
-        this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.skymapTextNight = new CGFappearance(this);
-        this.skymapTextNight.setAmbient(0.1, 0.1, 0.1, 1);
-        this.skymapTextNight.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.skymapTextNight.setSpecular(0.1, 0.1, 0.1, 1);
-        this.skymapTextNight.setShininess(1.0);
-        this.skymapTextNight.loadTexture('images/forest_skybox_night1.jpg');
-        this.skymapTextNight.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-
-        //Bonfire
-        this.fireMaterial = new CGFappearance(this);
-        this.fireMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.fireMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.fireMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.fireMaterial.setShininess(1.0);
-        this.fireMaterial.loadTexture('images/fireTexture.png');
-        this.fireMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.stoneMaterial = new CGFappearance(this);
-        this.stoneMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.stoneMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.stoneMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.stoneMaterial.setShininess(1.0);
-        this.stoneMaterial.loadTexture('images/stoneTexture.png');
-        this.stoneMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        //Pool
-        this.waterMaterial = new CGFappearance(this);
-        this.waterMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.waterMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.waterMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.waterMaterial.setShininess(1.0);
-        this.waterMaterial.loadTexture('images/waterTexture.png');
-        this.waterMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        this.initMaterials();
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -165,37 +45,165 @@ class MyScene extends CGFscene {
         this.pool = new MyPool(this, 6, 4, this.stoneMaterial, this.waterMaterial);
         
         //Objects connected to MyInterface
-        this.displayAxis = true;
         this.scaleFactor = 1.0;
-        this.lightBonfire = false;
-        this.ambientLight = -1;
-        this.ambientLight = { '': -1,'Day': 0, 'Night': 1 }; //dropdown
-        
+
+        this.ambientLight = 0;
+        this.ambientLight = { 'Day': 0, 'Night': 1 }; //dropdown
+        this.viewTextures = true;
     }
     initLights() {
         //Day Light
         this.lights[0].setPosition(15, 25, 15, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setDiffuse(1.0, 0.7, 0.5, 1.0);
+        this.lights[0].setConstantAttenuation(0.0);
+        this.lights[0].setLinearAttenuation(0.01);
+        this.lights[0].setQuadraticAttenuation(0.0);
         this.lights[0].disable();
 
         //Night Light
-        this.lights[1].setPosition(15, 25, 15, 1);
-        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setPosition(-10, 25, 20, 1);
+        this.lights[1].setDiffuse(0.5, 0.7, 1.0, 1.0);
+        this.lights[1].setConstantAttenuation(0.0);
+        this.lights[1].setLinearAttenuation(0.05);
+        this.lights[1].setQuadraticAttenuation(0.0);
         this.lights[1].disable();
 
         //BonfireLight
         this.lights[2].setPosition(-2, 0.76, 2, 1);
         this.lights[2].setDiffuse(0.9, 0.2, 0.1, 1.0);
+        this.lights[2].setConstantAttenuation(0.1);
+        this.lights[2].setLinearAttenuation(0.5);
+        this.lights[2].setQuadraticAttenuation(0.0);
         this.lights[2].disable();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.5, 0.1, 500, vec3.fromValues(45, 25, 45), vec3.fromValues(0, 3, 0));
+        this.camera = new CGFcamera(0.5, 0.1, 500, vec3.fromValues(12, 25, 40), vec3.fromValues(0, 3, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
+        this.setShininess(1.0);
+    }
+    initMaterials() {
+        //Tree materials
+        this.treeTopMaterial = new CGFappearance(this);
+        this.treeTopMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.treeTopMaterial.setSpecular(0.3, 0.3, 0.3, 1);
+        this.treeTopMaterial.setShininess(1.0);
+        this.treeTopMaterial.loadTexture('images/treeTopTexture.png');
+        this.treeTopMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.woodMaterial = new CGFappearance(this);
+        this.woodMaterial.setAmbient(0.2, 0.2, 0.2, 1);
+        this.woodMaterial.setDiffuse(0.8, 0.8, 0.8, 0.8);
+        this.woodMaterial.setSpecular(0, 0, 0, 1);
+        this.woodMaterial.setShininess(1.0);
+        this.woodMaterial.loadTexture('images/woodTexture.png');
+        this.woodMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //House Materials
+        this.houseFrontMaterial = new CGFappearance(this);
+        this.houseFrontMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.houseFrontMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.houseFrontMaterial.setSpecular(0.4, 0.4, 0.4, 1);
+        this.houseFrontMaterial.setShininess(1.0);
+        this.houseFrontMaterial.loadTexture('images/houseDoor.png');
+        this.houseFrontMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.houseWallMaterial = new CGFappearance(this);
+        this.houseWallMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.houseWallMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.houseWallMaterial.setSpecular(0.4, 0.4, 0.4, 1);
+        this.houseWallMaterial.setShininess(1.0);
+        this.houseWallMaterial.loadTexture('images/houseWall.png');
+        this.houseWallMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.roofMaterial = new CGFappearance(this);
+        this.roofMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.roofMaterial.setShininess(1.0);
+        this.roofMaterial.loadTexture('images/roof.png');
+        this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.pilaresMaterial = new CGFappearance(this);
+        this.pilaresMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.pilaresMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.pilaresMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.pilaresMaterial.setShininess(1.0);
+        this.pilaresMaterial.loadTexture('images/pilar.png');
+        this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Terrain material
+        this.terrainMaterial = new CGFappearance(this);
+        this.terrainMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.terrainMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.terrainMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.terrainMaterial.setShininess(1.0);
+        this.terrainMaterial.loadTexture('images/grass.jpg');
+        this.terrainMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        //Hills materials
+        this.sideCubeTexture = new CGFappearance(this);
+        this.sideCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sideCubeTexture.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.sideCubeTexture.setSpecular(0.2, 0.2, 0.2, 1);
+        this.sideCubeTexture.setShininess(1.0);
+        this.sideCubeTexture.loadTexture('images/mineSide.png');
+        this.sideCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.topCubeTexture = new CGFappearance(this);
+        this.topCubeTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.topCubeTexture.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.topCubeTexture.setSpecular(0.2, 0.2, 0.2, 1);
+        this.topCubeTexture.setShininess(10.0);
+        this.topCubeTexture.loadTexture('images/mineTop.png');
+        this.topCubeTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //SkyMap Texture
+        this.skymapTextDay = new CGFappearance(this);
+        this.skymapTextDay.setAmbient(0.1, 0.1, 0.1, 1);
+        this.skymapTextDay.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.skymapTextDay.setSpecular(0.1, 0.1, 0.1, 1);
+        this.skymapTextDay.setShininess(1.0);
+        this.skymapTextDay.loadTexture('images/forest_skybox_day1.jpg');
+        this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.skymapTextNight = new CGFappearance(this);
+        this.skymapTextNight.setAmbient(0.1, 0.1, 0.1, 1);
+        this.skymapTextNight.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.skymapTextNight.setSpecular(0.1, 0.1, 0.1, 1);
+        this.skymapTextNight.setShininess(1.0);
+        this.skymapTextNight.loadTexture('images/forest_skybox_night1.jpg');
+        this.skymapTextNight.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Bonfire
+        this.fireMaterial = new CGFappearance(this);
+        this.fireMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.fireMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.fireMaterial.setSpecular(0.4, 0.4, 0.4, 1);
+        this.fireMaterial.setShininess(1.0);
+        this.fireMaterial.loadTexture('images/fireTexture.png');
+        this.fireMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.stoneMaterial = new CGFappearance(this);
+        this.stoneMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.stoneMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.stoneMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.stoneMaterial.setShininess(1.0);
+        this.stoneMaterial.loadTexture('images/stoneTexture.png');
+        this.stoneMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Pool
+        this.waterMaterial = new CGFappearance(this);
+        this.waterMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.waterMaterial.setDiffuse(0.1, 0.1, 0.1, 1);
+        this.waterMaterial.setSpecular(0.9, 0.9, 0.9, 1);
+        this.waterMaterial.setShininess(1.0);
+        this.waterMaterial.loadTexture('images/waterTexture.png');
+        this.waterMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -208,9 +216,7 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        if(this.displayAxis)
-            this.axis.display();
+        this.enableTextures(this.viewTextures);
 
         if(this.ambientLight == 0) //Day
         {
@@ -224,11 +230,7 @@ class MyScene extends CGFscene {
             this.lights[1].enable();
             this.lights[2].enable();
         }
-        else {
-            this.lights[0].disable();
-            this.lights[1].disable();
-            this.lights[2].disable();
-        }
+
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -265,12 +267,8 @@ class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
         
-        //House
-        this.pushMatrix();
-        this.translate(0, 0.5, 0);
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor); 
+        //House 
         this.house.display();
-        this.popMatrix();
 
         //Hills
         this.pushMatrix();
@@ -289,7 +287,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-2, 0.5, 8);
+        this.translate(-1, 0.5, -10);
         this.hill.display(3);
         this.popMatrix();
 

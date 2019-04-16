@@ -24,7 +24,7 @@ class MyHouse extends CGFobject {
 
         //roof
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.5, 0);
+        this.scene.translate(0, 1, 0);
         this.roofTexture.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.roof.display();
@@ -32,6 +32,7 @@ class MyHouse extends CGFobject {
 
         //base
         this.scene.pushMatrix();
+        this.scene.translate(0, 0.5, 0);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.base.display();
         this.scene.popMatrix();
@@ -45,7 +46,7 @@ class MyHouse extends CGFobject {
         for (var i = 0; i < this.roofSlices; i++) {
             var ang = i * alphaAng
             this.scene.pushMatrix();
-            this.scene.translate(Math.cos(ang), -0.5, Math.sin(ang));
+            this.scene.translate(Math.cos(ang), 0, Math.sin(ang));
             this.pilars.display();
             this.scene.popMatrix();
         }
