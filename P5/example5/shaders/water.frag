@@ -16,11 +16,9 @@ void main() {
 
 	vec4 filter = texture2D(uSampler2, movementCoords);
 
-	if(true) {
-		color.b -= color.b * filter.b * 0.2;
-		color.r -= color.r * filter.b * 0.2;
-		color.g -= color.g * filter.b * 0.2;
-	}
-
+	color.b -= color.b * filter.b * 0.2;
+	color.r -= color.r * filter.b * 0.2;
+	color.g -= color.g * filter.b * 0.2;
+	
 	gl_FragColor = color;
 }
