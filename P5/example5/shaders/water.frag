@@ -5,9 +5,22 @@ precision highp float;
 varying vec2 vTextureCoord;
 
 uniform sampler2D uSampler;
+uniform sampler2D uSampler2; 
+uniform float timeFactor;
 
 void main() {
-	vec4 color = texture2D(uSampler, vTextureCoord);
-	
+	// movement
+	vec2 movementCoords = mod(vTextureCoord + timeFactor*0.01, 1.0);
+
+	vec4 color = texture2D(uSampler, movementCoords);
+
+	vec4 filter = texture2D(uSampler2, movementCoords);
+
+	if(true) {
+		color.b -= color.b * filter.b * 0.2;
+		color.r -= color.r * filter.b * 0.2;
+		color.g -= color.g * filter.b * 0.2;
+	}
+
 	gl_FragColor = color;
 }

@@ -51,13 +51,13 @@ class ShaderScene extends CGFscene {
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.appearance.setShininess(120);
 
-	    this.texture = new CGFtexture(this, "textures/waterTex.jpg");
-		//this.texture = new CGFtexture(this, "textures/texture.jpg");
+		this.texture = new CGFtexture(this, "textures/texture.jpg");
 		this.appearance.setTexture(this.texture);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-	    this.texture2 = new CGFtexture(this, "textures/waterMap.jpg");
-		//this.texture2 = new CGFtexture(this, "textures/terrainMap.jpg");
+	    this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+		this.texture3 = new CGFtexture(this, "textures/WaterTex.jpg");
+		this.texture4 = new CGFtexture(this, "textures/waterMap.jpg")
 
 		// shaders initialization
 
@@ -216,6 +216,14 @@ class ShaderScene extends CGFscene {
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
+
+		if(this.selectedExampleShader == 11) {
+			this.texture3.bind(0);
+			this.texture4.bind(1);
+
+			this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+			this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+		}
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
 		//this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
