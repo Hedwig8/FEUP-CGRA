@@ -5,7 +5,8 @@
  */
 class MyLSystem extends CGFobject {
 	constructor(scene) {
-        super(scene);
+	    super(scene);
+	    this.scene = scene;
         this.init();
     }
 
@@ -24,7 +25,7 @@ class MyLSystem extends CGFobject {
     }
 
 
-    // gera o sistema L com os parâmetros atuais da cena
+    // gera o sistema L com os parï¿½metros atuais da cena
     generate(_axiom, _productions, _angle, _iterations, _scale){
         // copia o axioma da cena para iniciar a sequÃªncia de desenvolvimento
         this.axiom = _axiom;
@@ -86,13 +87,33 @@ class MyLSystem extends CGFobject {
             // verifica se sao caracteres especiais
             switch(this.axiom[i]){
                 case "+":
-                    // roda a esquerda
+                    // rotacao em sentido positivo sobre o eixo dos ZZ
                     this.scene.rotate(this.angle, 0, 0, 1);
                     break;
 
                 case "-":
-                    // roda a direita
+                    // rotacao em sentido negativo sobre o eixo dos ZZ
                     this.scene.rotate(-this.angle, 0, 0, 1);
+                    break;
+
+                case "\\":
+                    // rotacao em sentido positivo sobre o eixo dos XX
+                    this.scene.rotate(this.angle, 1, 0, 0);
+                    break;
+
+                case "/":
+                    // rotacao em sentido negativo sobre o eixo dos XX
+                    this.scene.rotate(-this.angle, 1, 0, 0);
+                    break;
+
+                case "^":
+                    // rotacao em sentido positivo sobre o eixo dos YY
+                    this.scene.rotate(this.angle, 0, 1, 0);
+                    break;
+
+                case "&":
+                    // rotacao em sentido negativo sobre o eixo dos YY
+                    this.scene.rotate(-this.angle, 0, 1, 0);
                     break;
 
                 case "[":

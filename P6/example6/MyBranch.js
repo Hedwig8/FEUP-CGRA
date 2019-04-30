@@ -1,21 +1,26 @@
+/**
+ * MyBranch
+ * @constructor
+ * @param scene - Reference to MyScene object
+ */
 class MyBranch extends CGFobject {
     constructor(scene) {
         super(scene);
         this.scene = scene;
 
-        this.branch = new MyCylinder(this.scene, 4, 1, 0.5);
+        this.cylinder = new MyCylinder(scene, 4, 1, 0.5);
 
-        this.branchMaterial = new CGFappearance(this.scene);
-        this.branchMaterial.setAmbient(0.4, 0.2, 0.0, 1);
-        this.branchMaterial.setDiffuse(0.4, 0.2, 0.0, 1);
-        this.branchMaterial.setSpecular(0.4, 0.2, 0.0, 1);
+        this.branchMaterial = new CGFappearance(scene);
+        this.branchMaterial.setAmbient(0.6, 0.4, 0.2, 1);
+        this.branchMaterial.setDiffuse(0.6, 0.4, 0.2, 1);
+        this.branchMaterial.setSpecular(0.6, 0.4, 0.2, 1);
         this.branchMaterial.setShininess(1.0);
     }
 
     display() {
         this.scene.pushMatrix();
         this.branchMaterial.apply();
-        this.branch.display();
+        this.cylinder.display();
         this.scene.popMatrix();
     }
 }
