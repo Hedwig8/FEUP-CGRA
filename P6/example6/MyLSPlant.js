@@ -1,11 +1,12 @@
 /**
- * MyLSystem
+ * MyLSPlant
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyLSystem extends CGFobject {
+class MyLSPlant extends CGFobject {
 	constructor(scene) {
         super(scene);
+        this.scene = scene;
         this.init();
     }
 
@@ -18,8 +19,8 @@ class MyLSystem extends CGFobject {
     // cria o lexico da gramática
     initGrammar(){
         this.grammar = {
-            "F": new MyRectangle(this.scene, 0.2, 1),
-            "X": new MyRectangle(this.scene, 0.5, 0.5)
+            "F": new MyBranch(this.scene),
+            "X": new MyLeaf(this.scene, 0.5)
         };
     }
 
@@ -93,6 +94,22 @@ class MyLSystem extends CGFobject {
                 case "-":
                     // roda a direita
                     this.scene.rotate(-this.angle, 0, 0, 1);
+                    break;
+
+                case "\\":
+                    this.scene.rotate(this.angle, 1, 0, 0);
+                    break;
+
+                case "/":
+                    this.scene.rotate(-this.angle, 1, 0, 0);
+                    break;
+
+                case "^":
+                this.scene.rotate(this.angle, 0, 1, 0);
+                    break;
+
+                case "&":
+                    this.scene.rotate(-this.angle, 0, 1, 0);
                     break;
 
                 case "[":
