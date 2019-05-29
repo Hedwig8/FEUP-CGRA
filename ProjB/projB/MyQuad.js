@@ -4,11 +4,15 @@
  * @param scene - Reference to MyScene object
  */
 class MyQuad extends CGFobject {
-	constructor(scene, coords) {
+	constructor(scene, width, height) {
 		super(scene);
+
+		this.scene = scene;
+
+		this.width = width;
+		this.height = height;
+
 		this.initBuffers();
-		if (coords != undefined)
-			this.updateTexCoords(coords);
 	}
 	
 	initBuffers() {
@@ -22,7 +26,9 @@ class MyQuad extends CGFobject {
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
-			1, 3, 2
+			1, 3, 2,
+			2, 1, 0,
+			2, 3, 1
 		];
 
 		//Facing Z positive
@@ -43,14 +49,11 @@ class MyQuad extends CGFobject {
 		this.initGLBuffers();
 	}
 
-	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the quad
-	 * @param {Array} coords - Array of texture coordinates
-	 */
-	updateTexCoords(coords) {
-		this.texCoords = [...coords];
-		this.updateTexCoordsGLBuffers();
+	display() {
+		this.scene.pushMatrix();
+		this.scene.scale(this.width, this.height, 1.0);
+		super.display();
+		this.scene.popMatrix();
 	}
 }
 

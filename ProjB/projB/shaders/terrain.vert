@@ -12,12 +12,11 @@ uniform sampler2D uSampler3;
 
 varying vec2 vTextureCoord;
 varying vec4 coords;
-varying float maxHeight;
 
 void main() {
 	
 	vTextureCoord = aTextureCoord;
-	maxHeight = 15.0;
+	float maxHeight = 12.0;
 
 	vec4 filter = texture2D(uSampler2, vTextureCoord);
 

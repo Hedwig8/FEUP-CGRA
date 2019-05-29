@@ -29,10 +29,18 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, 3, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
         this.skybox = new MyCubeMap(this);
 
+        this.lightning = new MyLightning(this);
+
+        this.quad = new MyQuad(this, 4, 1);
+
+        //Bird animation
         this.initialBirdY = 3;
         this.birdY = this.initialBirdY; //Used when displaying bird
         this.birdOscillation = 1;
         this.birdOscillationSpeed = this.birdOscillation * 4;
+
+        //Lightning animation
+        this.lightningActive = false;
 
         //Animation values
         this.lastTime = 0;
@@ -82,6 +90,13 @@ class MyScene extends CGFscene {
         this.skymapTextDay.setShininess(1.0);
         this.skymapTextDay.loadTexture('images/forest_skybox_day1.jpg');
         this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Lightning Texture
+        this.lightningTexture = new CGFappearance(this);
+        this.lightningTexture.setAmbient(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setDiffuse(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setSpecular(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setShininess(1.0);
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -98,7 +113,7 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    checkKeys() {
+    checkKeys(t) {
         var text = "Keys pressed: ";
         var keysPressed = false;
         // Check for key codes e.g. in https://keycode.info/
@@ -110,11 +125,17 @@ class MyScene extends CGFscene {
             text += " S ";
             keysPressed = true;
         }
+        if(this.gui.isKeyPressed("KeyL")) {
+            this.lightningActive = true;
+            this.lightning.startAnimation(t);
+            text += " L ";
+            keysPressed = true;
+        }
         if (keysPressed)
             console.log(text);
     }
     update(t){
-        this.checkKeys();
+        this.checkKeys(t);
         if (this.lastTime == 0) this.lastTime = t;
         var deltaT = (t - this.lastTime) / 1000;
         this.lastTime = t;
@@ -134,7 +155,9 @@ class MyScene extends CGFscene {
          
         this.timePassed += deltaT;
        
-       
+        if(this.lightningActive) {
+            this.lightningActive = this.lightning.update(t);
+        }
       
     }
     display() {
@@ -173,8 +196,17 @@ class MyScene extends CGFscene {
         //House
         this.pushMatrix();
         this.translate(4, 0, 4);
-        //this.house.display();
+        this.house.display();
         this.popMatrix();
+        
+        //Lightning
+        if(this.lightningActive) {
+            this.pushMatrix();
+            this.translate(0, 10, 0);
+            this.lightningTexture.apply();
+            this.lightning.display();
+            this.popMatrix();
+        }
 
         // ---- END Primitive drawing section
     }

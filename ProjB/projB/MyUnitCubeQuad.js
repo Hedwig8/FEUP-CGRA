@@ -10,7 +10,7 @@ class MyUnitCubeQuad extends CGFobject {
         this.scene = scene;
         this.topTexture = topTexture;
         this.sideTexture = sideTexture;
-        this.quad = new MyQuad(this.scene);
+        this.quad = new MyQuad(this.scene, 1.0, 1.0);
     }
 
     display() {
