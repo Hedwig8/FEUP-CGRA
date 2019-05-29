@@ -8,16 +8,23 @@ uniform mat4 uNMatrix;
 
 uniform sampler2D uSampler;
 uniform sampler2D uSampler2;
+uniform sampler2D uSampler3;
+
 varying vec2 vTextureCoord;
+varying vec4 coords;
+varying float maxHeight;
 
 void main() {
 	
 	vTextureCoord = aTextureCoord;
-	vec3 offset = vec3(0.0, 0.0, 0.0);
-	vec4 filter = texture2D(uSampler2, vec2(0.0, 0.1) + vTextureCoord);
+	maxHeight = 15.0;
 
-	offset = aVertexNormal*filter.b*10.0;
+	vec4 filter = texture2D(uSampler2, vTextureCoord);
 
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
+	vec4 vertex = vec4(aVertexPosition + aVertexNormal*maxHeight*filter.b, 1.0);
+
+	gl_Position = uPMatrix * uMVMatrix * vertex;
+
+	coords = vertex / maxHeight;
 }
 

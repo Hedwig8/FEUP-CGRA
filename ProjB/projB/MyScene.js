@@ -165,15 +165,15 @@ class MyScene extends CGFscene {
 
         //Skybox
         this.pushMatrix();
-        this.scale(this.planeSize, this.planeSize, this.planeSize);
+        this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
         this.skymapTextDay.apply();
         this.skybox.display();
         this.popMatrix();
 
         //House
         this.pushMatrix();
-        this.translate(4, this.birdY, 4);
-        this.house.display();
+        this.translate(4, 0, 4);
+        //this.house.display();
         this.popMatrix();
 
         // ---- END Primitive drawing section
