@@ -7,9 +7,6 @@ class MyLSystem extends CGFobject {
 	constructor(scene) {
         super(scene);
 
-        this.elementWidth = 0.1;
-        this.elementHeight = 1.0;
-
         this.init();
     }
 
@@ -20,10 +17,7 @@ class MyLSystem extends CGFobject {
 
     // cria o lexico da gramática
     initGrammar(){
-        this.grammar = {
-            "F": new MyQuad(this.scene, this.elementWidth, this.elementHeight),
-            "X": new MyQuad(this.scene,  this.elementWidth, this.elementHeight)
-        };
+        this.grammar = {};
     }
 
 
@@ -51,7 +45,7 @@ class MyLSystem extends CGFobject {
     // desenvolve o axioma ao longo de uma sequência de desenvolvimento com um determinado número de iterações
     iterate(){
         var i, j;
-        for (i=0; i < this.iterations; ++i){
+        for (i=0; i < this.iterations; ++i) {
             var newString = "";
 
             // substitui cada um dos caracteres da cadeia de caracteres de acordo com as produções
@@ -76,7 +70,7 @@ class MyLSystem extends CGFobject {
         console.log("(length: "+this.axiom.length+")");
     }
 
-    display(){
+    display() {
         this.scene.pushMatrix();
         this.scene.scale(this.scale, this.scale, this.scale);
 

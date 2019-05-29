@@ -22,14 +22,15 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(50);
 
-        //Initialize scene objects
-        this.axis = new CGFaxis(this);
-        this.terrain = new MyTerrain(this);
+        //Scene Constants
         this.terrainSize = 60;
-        this.house = new MyHouse(this, 3, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
-        this.skybox = new MyCubeMap(this);
-        this.lightning = new MyLightning(this);
-        this.tree = new MyLSPlant(this);
+        this.groundHeight = 4;
+
+        //Scene Variables
+
+        //General Animation values
+        this.lastTime = 0;
+        this.timePassed = 0;
 
         //Bird animation
         this.initialBirdY = 3;
@@ -40,11 +41,21 @@ class MyScene extends CGFscene {
         //Lightning animation
         this.lightningActive = false;
 
-        //Animation values
-        this.lastTime = 0;
-        this.timePassed = 0;
+        //Initialize scene objects
+        this.axis = new CGFaxis(this);
+        
+        this.terrain = new MyTerrain(this, this.terrainSize);
+        
+        this.house = new MyHouse(this, 3, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
+        
+        this.skybox = new MyCubeMap(this);
+        
+        this.lightning = new MyLightning(this);
+        
+        this.tree = new MyLSPlant(this);
 
         //Objects connected to MyInterface
+
     }
     initMaterials() {
         //House Materials
@@ -176,7 +187,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
+        
         //Terrain
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
@@ -193,23 +204,26 @@ class MyScene extends CGFscene {
 
         //House
         this.pushMatrix();
-        this.translate(4, 0, 4);
+        this.translate(14, this.groundHeight, 0);
         this.house.display();
         this.popMatrix();
         
+        //Tree
+        this.pushMatrix();
+        this.translate(10, this.groundHeight, 10);
+        this.tree.display();
+        this.popMatrix();
+
         //Lightning
         if(this.lightningActive) {
             this.pushMatrix();
-            this.translate(0, 10, 0);
+            this.translate(0.0, 15.0, 0.0);
+            this.scale(2.0, 2.0, 2.0);
             this.lightningTexture.apply();
             this.lightning.display();
             this.popMatrix();
         }
 
-        this.pushMatrix();
-        this.translate(10, 20, 10);
-        this.tree.display();
-        this.popMatrix();
 
         // ---- END Primitive drawing section
     }

@@ -4,13 +4,10 @@
  * @param scene - Reference to MyScene object
  */
 class MyQuad extends CGFobject {
-	constructor(scene, width, height) {
+	constructor(scene) {
 		super(scene);
 
 		this.scene = scene;
-
-		this.width = width;
-		this.height = height;
 
 		this.initBuffers();
 	}
@@ -47,13 +44,6 @@ class MyQuad extends CGFobject {
 		]
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
-	}
-
-	display() {
-		this.scene.pushMatrix();
-		this.scene.scale(this.width, this.height, 1.0);
-		super.display();
-		this.scene.popMatrix();
 	}
 }
 

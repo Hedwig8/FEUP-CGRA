@@ -8,12 +8,15 @@ class MyLightning extends MyLSystem {
         super(scene);
         this.scene = scene;
 
+        this.elementWidth = 0.2;
+        this.elementHeight = 1.0;
+        this.lightningDirection = -1.0
+
         this.initialAxiom = "X";
         this.ruleF = ["FF"];
         this.ruleX = [
-            "F[-X][X]F[-X]+FX",
-            "F[^X]&X", 
-            "F[/X][X]F[\\X]+X", 
+            "FF[-X]FFF[X]FF[-X]F",
+            "F[-X][X]F[-X]+FX"
         ];
         this.angleDegrees = 25.0;
         this.iterationsNum = 3;
@@ -35,6 +38,14 @@ class MyLightning extends MyLSystem {
             this.iterationsNum,
             this.scaleFactor
         );
+    }
+
+    // cria o lexico da gramática
+    initGrammar(){
+        this.grammar = {
+            "F": new MyQuad(this.scene),
+            "X": new MyQuad(this.scene)
+        };
     }
 
     startAnimation(t) {
@@ -116,8 +127,12 @@ class MyLightning extends MyLSystem {
 
                     if ( primitive )
                     {
+                        this.scene.pushMatrix();
+                        this.scene.translate(0.0, 0.5 * this.lightningDirection, 0.0);
+                        this.scene.scale(this.elementWidth, this.elementHeight, 1.0);
                         primitive.display();
-                        this.scene.translate(0, -1, 0);
+                        this.scene.popMatrix();
+                        this.scene.translate(0, this.elementHeight * this.lightningDirection, 0);
                     }
                     break;
             }

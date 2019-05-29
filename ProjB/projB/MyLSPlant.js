@@ -29,7 +29,7 @@ class MyLSPlant extends MyLSystem {
     }
 
     doGenerate() {
-        super.generate(
+        this.generate(
             this.initialAxiom,
             {
                 "F": this.ruleF,
@@ -43,7 +43,7 @@ class MyLSPlant extends MyLSystem {
 
     initGrammar() {
         this.grammar = {
-            "F": new MyBranch(this.scene),
+            "F": new MyTreeBranch(this.scene),
             "X": new MyLeaf(this.scene)
         };
     }

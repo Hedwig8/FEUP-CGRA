@@ -4,16 +4,18 @@
  * @param scene - Reference to MyScene object
  */
 class MyTerrain extends CGFobject {
-    constructor(scene) {
+    constructor(scene, size) {
         super(scene);
 
         this.scene = scene;
 
+        this.planeSize = size;
+
         this.plane = new Plane(this.scene, 32);
 
-        this.heightMap = new CGFtexture(this.scene, "images/heightmap.jpg");
+        this.heightMap = new CGFtexture(this.scene, "images/heightmap2.jpg");
         this.terrainTexture = new CGFtexture(this.scene, "images/terrain.jpg");
-        this.altimetryTexture = new CGFtexture(this.scene, "images/altimetry.png")
+        this.altimetryTexture = new CGFtexture(this.scene, "images/altimetry.png");
 
         this.terrainShader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
 
@@ -33,11 +35,10 @@ class MyTerrain extends CGFobject {
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.terrainShader);
         
-
         this.terrainMaterial.apply();
         this.plane.display();
+
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
-
     }
 }

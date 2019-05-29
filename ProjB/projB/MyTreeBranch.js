@@ -1,9 +1,9 @@
 /**
- * MyBranch
+ * MyTreeBranch
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyBranch extends CGFobject {
+class MyTreeBranch extends CGFobject {
     constructor(scene) {
         super(scene);
         this.scene = scene;
