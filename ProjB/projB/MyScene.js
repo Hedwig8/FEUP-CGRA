@@ -28,10 +28,8 @@ class MyScene extends CGFscene {
         this.terrainSize = 60;
         this.house = new MyHouse(this, 3, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
         this.skybox = new MyCubeMap(this);
-
         this.lightning = new MyLightning(this);
-
-        this.quad = new MyQuad(this, 4, 1);
+        this.tree = new MyLSPlant(this);
 
         //Bird animation
         this.initialBirdY = 3;
@@ -207,6 +205,11 @@ class MyScene extends CGFscene {
             this.lightning.display();
             this.popMatrix();
         }
+
+        this.pushMatrix();
+        this.translate(10, 20, 10);
+        this.tree.display();
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }
