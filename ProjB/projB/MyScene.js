@@ -35,7 +35,7 @@ class MyScene extends CGFscene {
         //Bird animation
         this.initialBirdY = 3;
         this.birdY = this.initialBirdY; //Used when displaying bird
-        this.birdOscillation = 1;
+        this.birdOscillation = 0.5;
         this.birdOscillationSpeed = this.birdOscillation * 4;
 
         //Lightning animation
@@ -128,10 +128,27 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text += " W ";
+            this.bird.accelerate(1);
             keysPressed = true;
         }
         if (this.gui.isKeyPressed("KeyS")) {
             text += " S ";
+            this.bird.accelerate(-1);
+            keysPressed = true;
+        }
+        if(this.gui.isKeyPressed("KeyA")) {
+            text += " A ";
+            this.bird.turn(0.2);
+            keysPressed = true;
+        }
+        if(this.gui.isKeyPressed("KeyD")) {
+            text += " D ";
+            this.bird.turn(-0.2);
+            keysPressed = true;
+        }
+        if(this.gui.isKeyPressed("KeyR")) {
+            text += " R ";
+            this.bird.reset();
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyL")) {
@@ -163,6 +180,8 @@ class MyScene extends CGFscene {
         }
          
         this.timePassed += deltaT;
+
+        this.bird.update(deltaT);
        
         if(this.lightningActive) {
             this.lightningActive = this.lightning.update(t);
@@ -192,14 +211,14 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
         this.scale(this.terrainSize, this.terrainSize, 1);
-        this.terrain.display();
+        //this.terrain.display();
         this.popMatrix();
 
         //Skybox
         this.pushMatrix();
         this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
         this.skymapTextDay.apply();
-        this.skybox.display();
+        //this.skybox.display();
         this.popMatrix();
 
         //House
@@ -224,6 +243,12 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
 
+
+        //Bird
+        this.pushMatrix();
+        this.translate(0, this.birdY, 0);
+        this.bird.display();
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }
