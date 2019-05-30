@@ -109,32 +109,7 @@ class MyScene extends CGFscene {
         this.lightningTexture.setSpecular(0.49, 0.98, 1.0, 1.0);
         this.lightningTexture.setShininess(1.0);
 
-        // bird body
-        this.feather = new CGFappearance(this);
-        this.feather.setAmbient(0.1, 0.1, 0.1, 1);
-        this.feather.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.feather.setSpecular(0.4, 0.4, 0.4, 1);
-        this.feather.setShininess(1.0);
-        this.feather.loadTexture('images/feather_text2.jpg');
-        this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        // bird eyes
-        this.eyes = new CGFappearance(this);
-        this.eyes.setAmbient(0.1, 0.1, 0.1, 1);
-        this.eyes.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.eyes.setSpecular(0.4, 0.4, 0.4, 1);
-        this.eyes.setShininess(1.0);
-        this.eyes.loadTexture('images/eyes_text.jpg');
-        this.eyes.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        // bird beak
-        this.beak = new CGFappearance(this);
-        this.beak.setAmbient(0.1, 0.1, 0.1, 1);
-        this.beak.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.beak.setSpecular(0.4, 0.4, 0.4, 1);
-        this.beak.setShininess(1.0);
-        this.beak.loadTexture('images/beak_text.png');
-        this.beak.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -186,11 +161,17 @@ class MyScene extends CGFscene {
             text += " L ";
             keysPressed = true;
         }
+        if(this.gui.isKeyPressed("KeyP")) {
+            text += " P ";
+            keysPressed = true;
+        }
         if (keysPressed)
             console.log(text);
     }
     update(t){
         this.checkKeys(t);
+
+        /*
         if (this.lastTime == 0) this.lastTime = t;
         var deltaT = (t - this.lastTime) / 1000;
         this.lastTime = t;
@@ -206,11 +187,15 @@ class MyScene extends CGFscene {
         else if (this.birdY <= minY) {
             this.birdY = minY;
             this.birdOscillationSpeed *= -1;
-        }
-         
-        this.timePassed += deltaT;
+        }*/
 
-        this.bird.update(deltaT);
+        var delta = (t - this.lastTime) / 1000;
+        this.lastTime = t;
+
+         
+        this.timePassed += delta;
+
+        this.bird.update(t, delta);
        
         if(this.lightningActive) {
             this.lightningActive = this.lightning.update(t);
@@ -264,7 +249,7 @@ class MyScene extends CGFscene {
 
         //Bird
         this.pushMatrix();
-        this.translate(0, this.birdY, 0);
+        this.translate(0, 3, 0);
         this.bird.display();
         this.popMatrix();
 
