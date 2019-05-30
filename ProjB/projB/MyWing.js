@@ -87,7 +87,28 @@ class MyWing extends CGFobject {
             0, -1, 0,
             0, -1, 0
         ];
-        //this.texCoords=[];
+        this.texCoords=[
+            0, 1,
+            0, 0,
+            1, 1,
+            1, 0,
+            0, 1,
+            0, 1,
+            0, 0,
+            1, 1,
+            1, 0,
+            0, 1,
+            0, 1,
+            0, 0,
+            1, 1,
+            1, 0,
+            0, 1,
+            0, 1,
+            0, 0,
+            1, 1,
+            1, 0,
+            0, 1
+        ];
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();

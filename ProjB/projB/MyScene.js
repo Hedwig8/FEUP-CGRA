@@ -54,6 +54,8 @@ class MyScene extends CGFscene {
         
         this.tree = new MyLSPlant(this);
 
+        this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
+
         //Objects connected to MyInterface
 
     }
@@ -106,6 +108,33 @@ class MyScene extends CGFscene {
         this.lightningTexture.setDiffuse(0.49, 0.98, 1.0, 1.0);
         this.lightningTexture.setSpecular(0.49, 0.98, 1.0, 1.0);
         this.lightningTexture.setShininess(1.0);
+
+        // bird body
+        this.feather = new CGFappearance(this);
+        this.feather.setAmbient(0.1, 0.1, 0.1, 1);
+        this.feather.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.feather.setSpecular(0.4, 0.4, 0.4, 1);
+        this.feather.setShininess(1.0);
+        this.feather.loadTexture('images/feather_text2.jpg');
+        this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        // bird eyes
+        this.eyes = new CGFappearance(this);
+        this.eyes.setAmbient(0.1, 0.1, 0.1, 1);
+        this.eyes.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.eyes.setSpecular(0.4, 0.4, 0.4, 1);
+        this.eyes.setShininess(1.0);
+        this.eyes.loadTexture('images/eyes_text.jpg');
+        this.eyes.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        // bird beak
+        this.beak = new CGFappearance(this);
+        this.beak.setAmbient(0.1, 0.1, 0.1, 1);
+        this.beak.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.beak.setSpecular(0.4, 0.4, 0.4, 1);
+        this.beak.setShininess(1.0);
+        this.beak.loadTexture('images/beak_text.png');
+        this.beak.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -211,7 +240,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
         this.scale(this.terrainSize, this.terrainSize, 1);
-        //this.terrain.display();
+        this.terrain.display();
         this.popMatrix();
 
         //Skybox
@@ -233,6 +262,12 @@ class MyScene extends CGFscene {
         this.tree.display();
         this.popMatrix();
 
+        //Bird
+        this.pushMatrix();
+        this.translate(0, this.birdY, 0);
+        this.bird.display();
+        this.popMatrix();
+
         //Lightning
         if(this.lightningActive) {
             this.pushMatrix();
@@ -244,11 +279,7 @@ class MyScene extends CGFscene {
         }
 
 
-        //Bird
-        this.pushMatrix();
-        this.translate(0, this.birdY, 0);
-        this.bird.display();
-        this.popMatrix();
+        
 
         // ---- END Primitive drawing section
     }
