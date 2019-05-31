@@ -42,7 +42,7 @@ class MyLSPlant extends MyLSystem {
 
     initGrammar() {
         this.grammar = {
-            "F": new MyTreeBranch(this.scene),
+            "F": new MyTreeBranch(this.scene, 0.3),
             "X": new MyLeaf(this.scene)
         };
     }

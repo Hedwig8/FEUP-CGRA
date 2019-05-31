@@ -61,6 +61,7 @@ class MyLightning extends MyLSystem {
 
         this.xPosition = Math.floor( (Math.random() * this.possiblePosWidthX) + 1);
         this.zPosition = Math.floor( (Math.random() * this.possiblePosWidthZ) + 1);
+        this.rotValue = Math.random() * Math.PI;
 
         this.doGenerate();
 
@@ -82,6 +83,7 @@ class MyLightning extends MyLSystem {
     display(){
         this.scene.pushMatrix();
         this.scene.translate(this.xPosition, 20.0, this.zPosition);
+        this.scene.rotate(this.rotValue, 0, 1, 0);
         this.lightningTexture.apply();
         this.scene.scale(this.scale, this.scale, this.scale);
 

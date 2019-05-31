@@ -27,6 +27,7 @@ class MyScene extends CGFscene {
         this.groundHeight = 4.2;
         this.treeBranchesValues = [];
         this.numTreeBranches = 6;
+        this.branchSize = 0.1;
 
         //Scene Variables
 
@@ -44,7 +45,7 @@ class MyScene extends CGFscene {
         this.lightningActive = false;
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this, 5, 5);
+        this.axis = new CGFaxis(this);
         
         this.terrain = new MyTerrain(this, this.terrainSize);
         
@@ -56,8 +57,10 @@ class MyScene extends CGFscene {
         
         this.forest = new MyForest(this, 20, 8);
 
-        this.treeBranch = new MyTreeBranch(this);
+        this.treeBranch = new MyTreeBranch(this, this.branchSize);
         this.initTreeBranchesValues();
+
+        this.nest = new MyNest(this);
 
         this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
 
@@ -67,7 +70,7 @@ class MyScene extends CGFscene {
 
     initTreeBranchesValues() {
         for(var i = 0; i < this.numTreeBranches; i++) {
-            this.treeBranchesValues.push(Math.floor( (Math.random() * 5) + 1), Math.floor( (Math.random() * 5) + 1));
+            this.treeBranchesValues.push(Math.floor( (Math.random() * 10) + 1), Math.floor( (Math.random() * 5) + 1));
             this.treeBranchesValues.push(Math.random() * Math.PI);
         }
     }
@@ -192,7 +195,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        //this.axis.display();
+        this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -232,11 +235,6 @@ class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
 
-        //Lightning
-        if(this.lightningActive) {
-            this.lightning.display();
-        }
-
         //TreeBranches
         this.pushMatrix();
         this.translate(9, this.groundHeight + 0.1, -2);
@@ -245,11 +243,21 @@ class MyScene extends CGFscene {
             this.translate(this.treeBranchesValues[i], 0, this.treeBranchesValues[i+1]);
             this.rotate(this.treeBranchesValues[i+2], 0, 1, 0);
             this.rotate(Math.PI/2, 0, 0, 1);
-            this.scale(0.2, 1, 0.2);
             this.treeBranch.display();
             this.popMatrix();
         }
         this.popMatrix();
+
+        //Nest
+        this.pushMatrix();
+        this.translate(-5, this.groundHeight, -10);
+        this.nest.display();
+        this.popMatrix();
+
+        //Lightning
+        if(this.lightningActive) {
+            this.lightning.display();
+        }
 
         // ---- END Primitive drawing section
     }
