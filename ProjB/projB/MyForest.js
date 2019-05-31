@@ -12,7 +12,7 @@ class MyForest extends CGFobject {
         this.trees = [];
         this.treePositions = [];
 
-        this.numTrees = this.widthX * this.widthZ / 5;
+        this.numTrees = this.widthX * this.widthZ / 7;
 
         this.constructTrees();
     }

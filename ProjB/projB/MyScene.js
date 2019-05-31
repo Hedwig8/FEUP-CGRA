@@ -24,7 +24,9 @@ class MyScene extends CGFscene {
 
         //Scene Constants
         this.terrainSize = 60;
-        this.groundHeight = 4;
+        this.groundHeight = 4.3;
+        this.treeBranchesValues = [];
+        this.numTreeBranches = 5;
 
         //Scene Variables
 
@@ -46,54 +48,31 @@ class MyScene extends CGFscene {
         
         this.terrain = new MyTerrain(this, this.terrainSize);
         
-        this.house = new MyHouse(this, 3, this.houseFrontMaterial, this.houseWallMaterial, this.roofMaterial, this.pilaresMaterial);
-        
         this.skybox = new MyCubeMap(this);
+
+        this.house = new MyHouse(this, 3);
         
         this.lightning = new MyLightning(this);
         
-        this.forest1 = new MyForest(this, 20, 8);
-        this.forest2 = new MyForest(this, 7, 10);
+        this.forest = new MyForest(this, 20, 8);
+
+        this.treeBranch = new MyTreeBranch(this);
+        this.initTreeBranchesValues();
 
         this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
 
         //Objects connected to MyInterface
 
     }
+
+    initTreeBranchesValues() {
+        for(var i = 0; i < this.numTreeBranches; i++) {
+            this.treeBranchesValues.push(Math.floor( (Math.random() * 5) + 1), Math.floor( (Math.random() * 5) + 1));
+            this.treeBranchesValues.push(Math.random() * Math.PI);
+        }
+    }
+
     initMaterials() {
-        //House Materials
-        this.houseFrontMaterial = new CGFappearance(this);
-        this.houseFrontMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.houseFrontMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.houseFrontMaterial.setSpecular(0.4, 0.4, 0.4, 1);
-        this.houseFrontMaterial.setShininess(1.0);
-        this.houseFrontMaterial.loadTexture('images/houseDoor.png');
-        this.houseFrontMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.houseWallMaterial = new CGFappearance(this);
-        this.houseWallMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.houseWallMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.houseWallMaterial.setSpecular(0.4, 0.4, 0.4, 1);
-        this.houseWallMaterial.setShininess(1.0);
-        this.houseWallMaterial.loadTexture('images/houseWall.png');
-        this.houseWallMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.roofMaterial = new CGFappearance(this);
-        this.roofMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.roofMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.roofMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.roofMaterial.setShininess(1.0);
-        this.roofMaterial.loadTexture('images/roof.png');
-        this.roofMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        this.pilaresMaterial = new CGFappearance(this);
-        this.pilaresMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.pilaresMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
-        this.pilaresMaterial.setSpecular(0.2, 0.2, 0.2, 1);
-        this.pilaresMaterial.setShininess(1.0);
-        this.pilaresMaterial.loadTexture('images/pilar.png');
-        this.pilaresMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
         //SkyMap Texture
         this.skymapTextDay = new CGFappearance(this);
         this.skymapTextDay.setAmbient(0.1, 0.1, 0.1, 1);
@@ -104,21 +83,25 @@ class MyScene extends CGFscene {
         this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         
     }
+
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
+
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
     }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
     checkKeys(t) {
         var text = "Keys pressed: ";
         var keysPressed = false;
@@ -161,6 +144,7 @@ class MyScene extends CGFscene {
         if (keysPressed)
             console.log(text);
     }
+
     update(t){
         this.checkKeys(t);
 
@@ -195,6 +179,7 @@ class MyScene extends CGFscene {
         }
       
     }
+
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -235,15 +220,10 @@ class MyScene extends CGFscene {
         this.house.display();
         this.popMatrix();
         
-        //Forests
+        //Forest
         this.pushMatrix();
         this.translate(-5, this.groundHeight, 2);
-        this.forest1.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(-16, this.groundHeight, -10);
-        this.forest2.display();
+        this.forest.display();
         this.popMatrix();
 
         //Bird
@@ -256,6 +236,20 @@ class MyScene extends CGFscene {
         if(this.lightningActive) {
             this.lightning.display();
         }
+
+        //TreeBranches
+        this.pushMatrix();
+        this.translate(14, this.groundHeight, -3);
+        for(var i  = 0; i < this.treeBranchesValues.length; i+=3) {
+            this.pushMatrix();
+            this.translate(this.treeBranchesValues[i], 0, this.treeBranchesValues[i+1]);
+            this.rotate(this.treeBranchesValues[i+2], 0, 1, 0);
+            this.rotate(Math.PI/2, 0, 0, 1);
+            this.scale(0.2, 1, 0.2);
+            this.treeBranch.display();
+            this.popMatrix();
+        }
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }

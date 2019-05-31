@@ -8,7 +8,7 @@ class MyTreeBranch extends CGFobject {
         super(scene);
         this.scene = scene;
 
-        this.cylinder = new MyCylinder(scene, 4, 1, 0.5);
+        this.cylinder = new MyCylinder(scene, 7, 1, 0.6);
 
         this.branchMaterial = new CGFappearance(scene);
         this.branchMaterial.setAmbient(0.6, 0.4, 0.2, 1);
