@@ -24,9 +24,9 @@ class MyScene extends CGFscene {
 
         //Scene Constants
         this.terrainSize = 60;
-        this.groundHeight = 4.3;
+        this.groundHeight = 4.2;
         this.treeBranchesValues = [];
-        this.numTreeBranches = 5;
+        this.numTreeBranches = 6;
 
         //Scene Variables
 
@@ -222,7 +222,7 @@ class MyScene extends CGFscene {
         
         //Forest
         this.pushMatrix();
-        this.translate(-5, this.groundHeight, 2);
+        this.translate(-5, this.groundHeight, 4);
         this.forest.display();
         this.popMatrix();
 
@@ -239,7 +239,7 @@ class MyScene extends CGFscene {
 
         //TreeBranches
         this.pushMatrix();
-        this.translate(14, this.groundHeight, -3);
+        this.translate(9, this.groundHeight + 0.1, -2);
         for(var i  = 0; i < this.treeBranchesValues.length; i+=3) {
             this.pushMatrix();
             this.translate(this.treeBranchesValues[i], 0, this.treeBranchesValues[i+1]);
