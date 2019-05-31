@@ -6,7 +6,6 @@
 class MyLeaf extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
 
         this.triangle = new MyTriangle(scene);
 

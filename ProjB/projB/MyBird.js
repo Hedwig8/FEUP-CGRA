@@ -6,7 +6,6 @@ class MyBird extends CGFobject {
     constructor(scene, heading, x, y, z, texture, beak, eyes) {
         super(scene);
 
-        this.scene = scene;
         this.heading = this.initHeading = heading;
         this.x = this.initX = x;
         this.y = this.initY = y;

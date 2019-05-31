@@ -6,7 +6,6 @@
 class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
 
         this.elementWidth = 0.2;
         this.elementHeight = 1.0;

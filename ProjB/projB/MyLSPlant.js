@@ -6,7 +6,6 @@
 class MyLSPlant extends MyLSystem {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
 
         this.initialAxiom = "X";
         this.ruleF = ["FF"];

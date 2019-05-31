@@ -42,7 +42,7 @@ class MyScene extends CGFscene {
         this.lightningActive = false;
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this);
+        this.axis = new CGFaxis(this, 10, 10);
         
         this.terrain = new MyTerrain(this, this.terrainSize);
         
@@ -52,7 +52,7 @@ class MyScene extends CGFscene {
         
         this.lightning = new MyLightning(this);
         
-        this.tree = new MyLSPlant(this);
+        this.forest = new MyForest(this, 20, 8);
 
         this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
 
@@ -229,7 +229,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        //this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -247,19 +247,20 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(this.terrainSize, this.terrainSize, this.terrainSize);
         this.skymapTextDay.apply();
-        //this.skybox.display();
+        this.skybox.display();
         this.popMatrix();
 
         //House
         this.pushMatrix();
         this.translate(14, this.groundHeight, 0);
+        this.rotate(-0.5*Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
         
-        //Tree
+        //Forest
         this.pushMatrix();
-        this.translate(10, this.groundHeight, 10);
-        this.tree.display();
+        this.translate(-5, this.groundHeight, 2);
+        this.forest.display();
         this.popMatrix();
 
         //Bird
@@ -277,9 +278,6 @@ class MyScene extends CGFscene {
             this.lightning.display();
             this.popMatrix();
         }
-
-
-        
 
         // ---- END Primitive drawing section
     }

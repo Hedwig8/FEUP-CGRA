@@ -5,8 +5,6 @@
 class MyHouse extends CGFobject {
     constructor(scene, width, frontTexture, sideTexture, roofTexture, pilarsTexture) {
         super(scene);
-
-        this.scene = scene;
            
         this.width = width;
         this.frontTexture = frontTexture;

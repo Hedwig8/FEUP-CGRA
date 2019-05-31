@@ -7,8 +7,6 @@ class MyQuad extends CGFobject {
 	constructor(scene) {
 		super(scene);
 
-		this.scene = scene;
-
 		this.initBuffers();
 	}
 	
