@@ -42,7 +42,7 @@ class MyScene extends CGFscene {
         this.lightningActive = false;
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this, 10, 10);
+        this.axis = new CGFaxis(this, 5, 5);
         
         this.terrain = new MyTerrain(this, this.terrainSize);
         
@@ -52,7 +52,8 @@ class MyScene extends CGFscene {
         
         this.lightning = new MyLightning(this);
         
-        this.forest = new MyForest(this, 20, 8);
+        this.forest1 = new MyForest(this, 20, 8);
+        this.forest2 = new MyForest(this, 7, 10);
 
         this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
 
@@ -101,40 +102,7 @@ class MyScene extends CGFscene {
         this.skymapTextDay.setShininess(1.0);
         this.skymapTextDay.loadTexture('images/forest_skybox_day1.jpg');
         this.skymapTextDay.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        //Lightning Texture
-        this.lightningTexture = new CGFappearance(this);
-        this.lightningTexture.setAmbient(0.49, 0.98, 1.0, 1.0);
-        this.lightningTexture.setDiffuse(0.49, 0.98, 1.0, 1.0);
-        this.lightningTexture.setSpecular(0.49, 0.98, 1.0, 1.0);
-        this.lightningTexture.setShininess(1.0);
-
-        // bird body
-        this.feather = new CGFappearance(this);
-        this.feather.setAmbient(0.1, 0.1, 0.1, 1);
-        this.feather.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.feather.setSpecular(0.4, 0.4, 0.4, 1);
-        this.feather.setShininess(1.0);
-        this.feather.loadTexture('images/feather_text2.jpg');
-        this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        // bird eyes
-        this.eyes = new CGFappearance(this);
-        this.eyes.setAmbient(0.1, 0.1, 0.1, 1);
-        this.eyes.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.eyes.setSpecular(0.4, 0.4, 0.4, 1);
-        this.eyes.setShininess(1.0);
-        this.eyes.loadTexture('images/eyes_text.jpg');
-        this.eyes.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-
-        // bird beak
-        this.beak = new CGFappearance(this);
-        this.beak.setAmbient(0.1, 0.1, 0.1, 1);
-        this.beak.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.beak.setSpecular(0.4, 0.4, 0.4, 1);
-        this.beak.setShininess(1.0);
-        this.beak.loadTexture('images/beak_text.png');
-        this.beak.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -186,11 +154,17 @@ class MyScene extends CGFscene {
             text += " L ";
             keysPressed = true;
         }
+        if(this.gui.isKeyPressed("KeyP")) {
+            text += " P ";
+            keysPressed = true;
+        }
         if (keysPressed)
             console.log(text);
     }
     update(t){
         this.checkKeys(t);
+
+        /*
         if (this.lastTime == 0) this.lastTime = t;
         var deltaT = (t - this.lastTime) / 1000;
         this.lastTime = t;
@@ -206,11 +180,15 @@ class MyScene extends CGFscene {
         else if (this.birdY <= minY) {
             this.birdY = minY;
             this.birdOscillationSpeed *= -1;
-        }
-         
-        this.timePassed += deltaT;
+        }*/
 
-        this.bird.update(deltaT);
+        var delta = (t - this.lastTime) / 1000;
+        this.lastTime = t;
+
+         
+        this.timePassed += delta;
+
+        this.bird.update(t, delta);
        
         if(this.lightningActive) {
             this.lightningActive = this.lightning.update(t);
@@ -252,31 +230,31 @@ class MyScene extends CGFscene {
 
         //House
         this.pushMatrix();
-        this.translate(14, this.groundHeight, 0);
+        this.translate(14, this.groundHeight, -5);
         this.rotate(-0.5*Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
         
-        //Forest
+        //Forests
         this.pushMatrix();
         this.translate(-5, this.groundHeight, 2);
-        this.forest.display();
+        this.forest1.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-16, this.groundHeight, -10);
+        this.forest2.display();
         this.popMatrix();
 
         //Bird
         this.pushMatrix();
-        this.translate(0, this.birdY, 0);
+        this.translate(0, 3, 0);
         this.bird.display();
         this.popMatrix();
 
         //Lightning
         if(this.lightningActive) {
-            this.pushMatrix();
-            this.translate(0.0, 15.0, 0.0);
-            this.scale(2.0, 2.0, 2.0);
-            this.lightningTexture.apply();
             this.lightning.display();
-            this.popMatrix();
         }
 
         // ---- END Primitive drawing section

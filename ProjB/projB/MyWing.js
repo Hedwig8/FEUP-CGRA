@@ -3,48 +3,48 @@
  * @constructor
  */
 class MyWing extends CGFobject {
-    constructor(scene, width, length, offX, bodySize, midHeight, tipHeight) {
-        console.log("inicializada wing");
+    constructor(scene, width, length, offX, bodySize, midRotate, tipRotate) {
         super(scene);
         this.scene = scene;
         this.width = width;
         this.length = length;
-        this.midHeight = midHeight;
-        this.tipHeight = tipHeight;
+        this.midRotate = midRotate-6*Math.PI/7; //rotation of the wing + offset
+        this.tipRotate = tipRotate - Math.PI/6; //rotation of the tip of the wing, comparing to the wing itself + offset
         this.offX = offX;
         this.bodySize = bodySize;
+        this.counter = 0;
 
         this.initBuffers();
-        console.log("fim da inicializaçao da wing");
     }
+
     initBuffers() {
         this.vertices=[
             //right wing
                 //top
                 0, 0, this.bodySize/2,
                 this.width, 0, this.bodySize/2,
-                this.offX, this.midHeight, this.bodySize/2+this.length/2,
-                this.width+this.offX, this.midHeight, this.bodySize/2+this.length/2,
-                this.offX, this.tipHeight, this.bodySize/2+this.length,
+                this.offX, this.length/2*Math.sin(this.midRotate), this.bodySize/2+this.length/2,
+                this.width+this.offX, this.length/2*Math.sin(this.midRotate), this.bodySize/2+this.length/2,
+                this.offX, this.length/2*Math.sin(this.midRotate)+this.length/2*Math.sin(this.midRotate+this.tipRotate), this.bodySize/2+this.length,
                 // bottom
                 0, 0, this.bodySize/2,
                 this.width, 0, this.bodySize/2,
-                this.offX, this.midHeight, this.bodySize/2+this.length/2,
-                this.width+this.offX, this.midHeight, this.bodySize/2+this.length/2,
-                this.offX, this.tipHeight, this.bodySize/2+this.length,
+                this.offX, this.length/2*Math.sin(this.midRotate), this.bodySize/2+this.length/2,
+                this.width+this.offX, this.length/2*Math.sin(this.midRotate), this.bodySize/2+this.length/2,
+                this.offX, this.length/2*Math.sin(this.midRotate)+this.length/2*Math.sin(this.midRotate+this.tipRotate), this.bodySize/2+this.length,
             //left wing
                 //top
                 0, 0, -this.bodySize/2,
                 this.width, 0, -this.bodySize/2,
-                this.offX, this.midHeight, -this.bodySize/2-this.length/2,
-                this.width+this.offX, this.midHeight, -this.bodySize/2-this.length/2,
-                this.offX, this.tipHeight, -this.bodySize/2-this.length,
+                this.offX, this.length/2*Math.sin(this.midRotate), -this.bodySize/2-this.length/2,
+                this.width+this.offX, this.length/2*Math.sin(this.midRotate), -this.bodySize/2-this.length/2,
+                this.offX, this.length/2*Math.sin(this.midRotate)+this.length/2*Math.sin(this.midRotate+this.tipRotate), -this.bodySize/2-this.length,
                 //bottom
                 0, 0, -this.bodySize/2,
                 this.width, 0, -this.bodySize/2,
-                this.offX, this.midHeight, -this.bodySize/2-this.length/2,
-                this.width+this.offX, this.midHeight, -this.bodySize/2-this.length/2,
-                this.offX, this.tipHeight, -this.bodySize/2-this.length
+                this.offX, this.length/2*Math.sin(this.midRotate), -this.bodySize/2-this.length/2,
+                this.width+this.offX, this.length/2*Math.sin(this.midRotate), -this.bodySize/2-this.length/2,
+                this.offX, this.length/2*Math.sin(this.midRotate)+this.length/2*Math.sin(this.midRotate+this.tipRotate), -this.bodySize/2-this.length
         ];
         this.indices=[
             //top right
@@ -113,6 +113,14 @@ class MyWing extends CGFobject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
-    
+
+    update(t, delta) {
+
+        this.midRotate += delta * 2*Math.PI; 
+        //this.tipRotate += delta * 2*Math.PI;
+       
+        this.initBuffers();
+        
+    }
    
 }

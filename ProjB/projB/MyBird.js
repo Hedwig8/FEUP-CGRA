@@ -3,7 +3,7 @@
  * @constructor
  */
 class MyBird extends CGFobject {
-    constructor(scene, heading, x, y, z, texture, beak, eyes) {
+    constructor(scene, heading, x, y, z) {
         super(scene);
 
         this.heading = this.initHeading = heading;
@@ -11,30 +11,51 @@ class MyBird extends CGFobject {
         this.y = this.initY = y;
         this.z = this.initZ = z;
         this.v = 0;
-        this.featherText = texture;
-        this.beakText = beak;
-        this.eyesText = eyes;
         this.unitBody = new MySphere(scene, 1, 8, 8);
         this.beak = new MyPyramid(scene, 4, 0.2, 0.2, 0, 0);
-        this.wing = new MyWing(scene, 0.7, 2, 0.3, 1, 0.1, 0);
+        this.wing = new MyWing(scene, 0.7, 2, 0.3, 1, 0, 0);
         this.tail = new MyTail(scene);
 
-        //this.initMaterials();
+        this.initMaterials();
     }
-/*
-    initMaterials() {
-        this.feather = new CGFappearance(this);
-        this.feather.setAmbient(0.1, 0.1, 0.1, 1);
-        this.feather.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.feather.setSpecular(0.4, 0.4, 0.4, 1);
-        this.feather.setShininess(1.0);
-        this.feather.loadTexture('images/feather_text.jpg');
-        this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
-    }*/
 
-    update(t) {
-        this.x += t*this.v*Math.cos(this.heading);
-        this.z -= t*this.v*Math.sin(this.heading);
+    initMaterials() {
+        // bird body
+        this.featherText = new CGFappearance(this.scene);
+        this.featherText.setAmbient(0.1, 0.1, 0.1, 1);
+        this.featherText.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.featherText.setSpecular(0.4, 0.4, 0.4, 1);
+        this.featherText.setShininess(1.0);
+        this.featherText.loadTexture('images/feather_text2.jpg');
+        this.featherText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        // bird eyes
+        this.eyesText = new CGFappearance(this.scene);
+        this.eyesText.setAmbient(0.1, 0.1, 0.1, 1);
+        this.eyesText.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.eyesText.setSpecular(0.4, 0.4, 0.4, 1);
+        this.eyesText.setShininess(1.0);
+        this.eyesText.loadTexture('images/eyes_text.jpg');
+        this.eyesText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        // bird beak
+        this.beakText = new CGFappearance(this.scene);
+        this.beakText.setAmbient(0.1, 0.1, 0.1, 1);
+        this.beakText.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.beakText.setSpecular(0.4, 0.4, 0.4, 1);
+        this.beakText.setShininess(1.0);
+        this.beakText.loadTexture('images/beak_text.png');
+        this.beakText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    }
+
+    update(t, delta) {
+
+        this.y += Math.sin(t /500* Math.PI) * 0.2;
+
+        this.x += delta*this.v*Math.cos(this.heading);
+        this.z -= delta*this.v*Math.sin(this.heading);
+
+        this.wing.update(t, delta);
     }
 
     turn(v) {

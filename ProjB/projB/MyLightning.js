@@ -10,6 +10,15 @@ class MyLightning extends MyLSystem {
         this.elementWidth = 0.2;
         this.elementHeight = 1.0;
         this.lightningDirection = -1.0
+        this.possiblePosWidthX = 10;
+        this.possiblePosWidthZ = 10;
+
+        //Lightning Texture
+        this.lightningTexture = new CGFappearance(this.scene);
+        this.lightningTexture.setAmbient(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setDiffuse(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setSpecular(0.49, 0.98, 1.0, 1.0);
+        this.lightningTexture.setShininess(1.0);
 
         this.initialAxiom = "X";
         this.ruleF = ["FF"];
@@ -50,6 +59,9 @@ class MyLightning extends MyLSystem {
     startAnimation(t) {
         this.initAnimTime = t;
 
+        this.xPosition = Math.floor( (Math.random() * this.possiblePosWidthX) + 1);
+        this.zPosition = Math.floor( (Math.random() * this.possiblePosWidthZ) + 1);
+
         this.doGenerate();
 
         this.update(t);
@@ -69,6 +81,8 @@ class MyLightning extends MyLSystem {
 
     display(){
         this.scene.pushMatrix();
+        this.scene.translate(this.xPosition, 20.0, this.zPosition);
+        this.lightningTexture.apply();
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;
