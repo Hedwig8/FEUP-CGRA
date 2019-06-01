@@ -28,8 +28,8 @@ class MyScene extends CGFscene {
         this.treeBranchesValues = [];
         this.numTreeBranches = 6;
         this.branchSize = 0.1;
-        this.nestX = -5;
-        this.nestZ = -10;
+        this.nestX = -13;
+        this.nestZ = -2;
 
         //Scene Variables
 
@@ -57,7 +57,7 @@ class MyScene extends CGFscene {
         
         this.lightning = new MyLightning(this);
         
-        this.forest = new MyForest(this, 20, 8);
+        this.forest = new MyForest(this, 10, 15, 10);
 
         this.treeBranches = []; 
         this.initTreeBranches();
@@ -77,7 +77,7 @@ class MyScene extends CGFscene {
     initTreeBranches() {
         for(var i = 0; i < this.numTreeBranches; i++) {
             
-            this.treeBranches.push(new MyTreeBranch(this, 0.1, Math.floor( (Math.random() * 10) + 1) + 9,this.groundHeight+0.1, Math.floor( (Math.random() * 5) + 1)-2, Math.random() * Math.PI));
+            this.treeBranches.push(new MyTreeBranch(this, 0.1, Math.floor( (Math.random() * 10) + 1) + 7,this.groundHeight+0.1, Math.floor( (Math.random() * 5) + 1)-2, Math.random() * Math.PI));
         }
     }
 
@@ -215,7 +215,7 @@ class MyScene extends CGFscene {
             this.camera.setTarget(vec3.fromValues(this.bird.x, this.bird.y+1.5, this.bird.z));
             this.camera.setPosition(vec3.fromValues(this.bird.x - 10*Math.cos(this.bird.heading), this.bird.y+10, this.bird.z + 10*Math.sin(this.bird.heading)));
         }
-        else this.initCameras();
+        //else this.initCameras();
 
         // ---- BEGIN Primitive drawing section
         
@@ -242,7 +242,7 @@ class MyScene extends CGFscene {
         
         //Forest
         this.pushMatrix();
-        this.translate(-5, this.groundHeight, 4);
+        this.translate(-8, this.groundHeight, 4);
         this.forest.display();
         this.popMatrix();
 

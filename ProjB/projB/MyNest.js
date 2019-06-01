@@ -11,11 +11,13 @@ class MyNest extends CGFobject {
         this.bottomWidth = 2 * this.radius - this.radius /4;
         this.branchSize = 0.05;
         this.aroundSlices = 20 * this.radius;
-        this.levels = 3;
+        this.levels = 5;
         this.numBranches = this.aroundSlices * this.levels;
+        this.eggRadius = 0.4;
 
         this.branch = new MyTreeBranch(this.scene, this.branchSize);
         this.bottom = new MyQuad(this.scene);
+        this.egg = new MySphere(this.scene, 0.5, 8, 8);
 
         this.initRandomAngles();
         this.initMaterials();
@@ -39,6 +41,15 @@ class MyNest extends CGFobject {
         this.bottomTexture.setShininess(1.0);
         this.bottomTexture.loadTexture('images/treeWood.jpg');
         this.bottomTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        //Bottom
+        this.eggTexture = new CGFappearance(this.scene);
+        this.eggTexture.setAmbient(0.1, 0.1, 0.1, 1);
+        this.eggTexture.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.eggTexture.setSpecular(0.1, 0.1, 0.1, 1);
+        this.eggTexture.setShininess(1.0);
+        this.eggTexture.loadTexture('images/egg.jpg');
+        this.eggTexture.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
 
     display() {
@@ -49,6 +60,14 @@ class MyNest extends CGFobject {
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.bottomTexture.apply();
         this.bottom.display();
+        this.scene.popMatrix();
+
+        //Egg
+        this.scene.pushMatrix();
+        this.scene.translate(0, this.eggRadius, 0);
+        this.scene.scale(1, 1.5, 1);
+        this.eggTexture.apply();
+        this.egg.display();
         this.scene.popMatrix();
 
         //Around branches
