@@ -73,6 +73,7 @@ class MyScene extends CGFscene {
         this.birdPov = false;
 
         //used to set active camera in interface
+        this.justChangedCamera = false;
         this.app = application;
     }
 
@@ -129,12 +130,12 @@ class MyScene extends CGFscene {
         }
         if(this.gui.isKeyPressed("KeyA")) {
             text += " A ";
-            this.bird.turn(0.2*this.speedFactor);
+            this.bird.turn(0.15*this.speedFactor);
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyD")) {
             text += " D ";
-            this.bird.turn(-0.2*this.speedFactor);
+            this.bird.turn(-0.15*this.speedFactor);
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyR")) {
@@ -216,10 +217,12 @@ class MyScene extends CGFscene {
         if(this.birdPov) {
             this.camera.setTarget(vec3.fromValues(this.bird.x, this.bird.y+1.5, this.bird.z));
             this.camera.setPosition(vec3.fromValues(this.bird.x - 10*Math.cos(this.bird.heading), this.bird.y+7, this.bird.z + 10*Math.sin(this.bird.heading)));
+            this.justChangedCamera = true;
         }
-        else {
+        else if (this.justChangedCamera) {
             this.initCameras();
             this.app.interface.setActiveCamera(this.camera);
+            this.justChangedCamera = false;
         }
 
 
