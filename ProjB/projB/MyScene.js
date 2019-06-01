@@ -28,8 +28,8 @@ class MyScene extends CGFscene {
         this.treeBranchesValues = [];
         this.numTreeBranches = 6;
         this.branchSize = 0.1;
-        this.nestX = -5;
-        this.nestZ = -10;
+        this.nestX = -13;
+        this.nestZ = -2;
 
         //Scene Variables
 
@@ -57,7 +57,7 @@ class MyScene extends CGFscene {
         
         this.lightning = new MyLightning(this);
         
-        this.forest = new MyForest(this, 20, 5);
+        this.forest = new MyForest(this, 10, 15, 10);
 
         this.treeBranches = []; 
         this.initTreeBranches();
@@ -79,7 +79,7 @@ class MyScene extends CGFscene {
     initTreeBranches() {
         for(var i = 0; i < this.numTreeBranches; i++) {
             
-            this.treeBranches.push(new MyTreeBranch(this, 0.1, Math.floor( (Math.random() * 10) + 1) + 9,this.groundHeight+0.1, Math.floor( (Math.random() * 5) + 1)-2, Math.random() * Math.PI));
+            this.treeBranches.push(new MyTreeBranch(this, 0.1, Math.floor( (Math.random() * 10) + 1) + 7,this.groundHeight+0.1, Math.floor( (Math.random() * 5) + 1)-2, Math.random() * Math.PI));
         }
     }
 
@@ -248,7 +248,7 @@ class MyScene extends CGFscene {
         
         //Forest
         this.pushMatrix();
-        this.translate(-5, this.groundHeight, 4);
+        this.translate(-8, this.groundHeight, 4);
         this.forest.display();
         this.popMatrix();
 

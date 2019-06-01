@@ -10,8 +10,8 @@ class MyLightning extends MyLSystem {
         this.elementWidth = 0.2;
         this.elementHeight = 1.0;
         this.lightningDirection = -1.0
-        this.possiblePosWidthX = 10;
-        this.possiblePosWidthZ = 10;
+        this.possiblePosWidthX = 5;
+        this.possiblePosWidthZ = 5;
 
         //Lightning Texture
         this.lightningTexture = new CGFappearance(this.scene);
@@ -23,8 +23,12 @@ class MyLightning extends MyLSystem {
         this.initialAxiom = "X";
         this.ruleF = ["FF"];
         this.ruleX = [
-            "FF[-X]FFF[X]FF[-X]F",
-            "F[-X][X]F[-X]+FX"
+            "F[-X][X]F[-X]+FX",
+            "&F[/X][FX]F[\\X]^FX",
+            "\\F[X]F[&FX]FX",
+            "F[X]F[FX+F[&FX]]FX",
+            "^FX[-FX]F[/XF[+FX]]FX",
+            "F[-FX]F[+FX]F[&FX]FX"
         ];
         this.angleDegrees = 25.0;
         this.iterationsNum = 3;
@@ -82,7 +86,7 @@ class MyLightning extends MyLSystem {
 
     display(){
         this.scene.pushMatrix();
-        this.scene.translate(this.xPosition, 20.0, this.zPosition);
+        this.scene.translate(this.xPosition, 17, this.zPosition);
         this.scene.rotate(this.rotValue, 0, 1, 0);
         this.lightningTexture.apply();
         this.scene.scale(this.scale, this.scale, this.scale);

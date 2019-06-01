@@ -10,15 +10,15 @@ class MyLSPlant extends MyLSystem {
         this.initialAxiom = "X";
         this.ruleF = ["FF"];
         this.ruleX = [
-            "F[-X][X]F[-X]+X",
-            "F[-X][X]+X",
-            "F[+X]-X",
-            "F[/X][X]F[\\\\X]+X",
-            "F[\\X][X]/X",
-            "F[/X]\\X",
-            "F[^X][X]F[&X]^X",
-            "F[^X]&X",
-            "F[&X]^X",
+            "F[-FX][FX]F[-FX]+FX",
+            "F[-FX][FX]+FX",
+            "F[+FX]-FX",
+            "F[/FX][FX]F[\\\\FX]+FX",
+            "F[\\XF][FX]/FX",
+            "F[/FX]\\FX",
+            "F[^FX][FX]F[F&X]^FX",
+            "F[^FX]&FX",
+            "F[&FX]^XF[X]F",
         ];
         this.angleDegrees = 30.0;
         this.iterationsNum = 4;

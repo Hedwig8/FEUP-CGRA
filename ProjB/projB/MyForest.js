@@ -3,7 +3,7 @@
 * @constructor
 */
 class MyForest extends CGFobject {
-    constructor(scene, widthX, widthZ) {
+    constructor(scene, numTrees, widthX, widthZ) {
         super(scene);
 
         this.widthX = widthX;
@@ -12,7 +12,7 @@ class MyForest extends CGFobject {
         this.trees = [];
         this.treePositions = [];
 
-        this.numTrees = this.widthX * this.widthZ / 7;
+        this.numTrees = numTrees;
 
         this.constructTrees();
     }
