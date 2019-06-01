@@ -57,7 +57,7 @@ class MyScene extends CGFscene {
         
         this.lightning = new MyLightning(this);
         
-        this.forest = new MyForest(this, 20, 8);
+        this.forest = new MyForest(this, 20, 5);
 
         this.treeBranches = []; 
         this.initTreeBranches();
@@ -72,6 +72,8 @@ class MyScene extends CGFscene {
         this.scaleFactor = 1;
         this.birdPov = false;
 
+        //used to set active camera in interface
+        this.app = application;
     }
 
     initTreeBranches() {
@@ -213,9 +215,13 @@ class MyScene extends CGFscene {
 
         if(this.birdPov) {
             this.camera.setTarget(vec3.fromValues(this.bird.x, this.bird.y+1.5, this.bird.z));
-            this.camera.setPosition(vec3.fromValues(this.bird.x - 10*Math.cos(this.bird.heading), this.bird.y+10, this.bird.z + 10*Math.sin(this.bird.heading)));
+            this.camera.setPosition(vec3.fromValues(this.bird.x - 10*Math.cos(this.bird.heading), this.bird.y+7, this.bird.z + 10*Math.sin(this.bird.heading)));
         }
-        else this.initCameras();
+        else {
+            this.initCameras();
+            this.app.interface.setActiveCamera(this.camera);
+        }
+
 
         // ---- BEGIN Primitive drawing section
         
