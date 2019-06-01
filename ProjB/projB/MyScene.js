@@ -28,6 +28,8 @@ class MyScene extends CGFscene {
         this.treeBranchesValues = [];
         this.numTreeBranches = 6;
         this.branchSize = 0.1;
+        this.nestX = -5;
+        this.nestZ = -10;
 
         //Scene Variables
 
@@ -57,21 +59,25 @@ class MyScene extends CGFscene {
         
         this.forest = new MyForest(this, 20, 8);
 
-        this.treeBranch = new MyTreeBranch(this, this.branchSize);
-        this.initTreeBranchesValues();
+        this.treeBranches = []; 
+        this.initTreeBranches();
 
         this.nest = new MyNest(this);
 
-        this.bird = new MyBird(this, 0, 10, 5, 0, this.feather, this.beak, this.eyes);
+        this.bird = new MyBird(this, 0, 10, this.groundHeight+3, 0);
 
         //Objects connected to MyInterface
 
+        this.speedFactor = 1;
+        this.scaleFactor = 1;
+        this.birdPov = false;
+
     }
 
-    initTreeBranchesValues() {
+    initTreeBranches() {
         for(var i = 0; i < this.numTreeBranches; i++) {
-            this.treeBranchesValues.push(Math.floor( (Math.random() * 10) + 1), Math.floor( (Math.random() * 5) + 1));
-            this.treeBranchesValues.push(Math.random() * Math.PI);
+            
+            this.treeBranches.push(new MyTreeBranch(this, 0.1, Math.floor( (Math.random() * 10) + 1) + 9,this.groundHeight+0.1, Math.floor( (Math.random() * 5) + 1)-2, Math.random() * Math.PI));
         }
     }
 
@@ -111,22 +117,22 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text += " W ";
-            this.bird.accelerate(1);
+            this.bird.accelerate(1*this.speedFactor);
             keysPressed = true;
         }
         if (this.gui.isKeyPressed("KeyS")) {
             text += " S ";
-            this.bird.accelerate(-1);
+            this.bird.accelerate(-1*this.speedFactor);
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyA")) {
             text += " A ";
-            this.bird.turn(0.2);
+            this.bird.turn(0.2*this.speedFactor);
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyD")) {
             text += " D ";
-            this.bird.turn(-0.2);
+            this.bird.turn(-0.2*this.speedFactor);
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyR")) {
@@ -141,6 +147,7 @@ class MyScene extends CGFscene {
             keysPressed = true;
         }
         if(this.gui.isKeyPressed("KeyP")) {
+            this.bird.pickBranch(t);
             text += " P ";
             keysPressed = true;
         }
@@ -151,36 +158,40 @@ class MyScene extends CGFscene {
     update(t){
         this.checkKeys(t);
 
-        /*
-        if (this.lastTime == 0) this.lastTime = t;
-        var deltaT = (t - this.lastTime) / 1000;
-        this.lastTime = t;
-           
-        this.birdY = this.birdY + (this.birdOscillationSpeed * deltaT);
-        
-        var maxY = (this.initialBirdY + this.birdOscillation);
-        var minY = (this.initialBirdY - this.birdOscillation);
-        if (this.birdY >= maxY) {
-            this.birdY = maxY;
-            this.birdOscillationSpeed *= -1;
-        }
-        else if (this.birdY <= minY) {
-            this.birdY = minY;
-            this.birdOscillationSpeed *= -1;
-        }*/
-
         var delta = (t - this.lastTime) / 1000;
         this.lastTime = t;
-
          
         this.timePassed += delta;
 
-        this.bird.update(t, delta);
+        this.bird.update(t, delta, this.speedFactor);
        
         if(this.lightningActive) {
             this.lightningActive = this.lightning.update(t);
         }
       
+    }
+
+    catchBranch() {
+        for(var i = 0; i < this.treeBranches.length; i++) {
+            var ret = null;
+            var dist = Math.sqrt( Math.pow(this.bird.x - this.treeBranches[i].x ,2) + Math.pow( this.bird.z - this.treeBranches[i].z,2) );
+            console.log(dist);
+            if(dist < 1) {
+                ret = this.treeBranches[i];
+                this.treeBranches.splice(i, 1);
+                break;
+            }
+        }
+
+        return ret;
+    }
+
+    leaveBranchAtNest(branch) {
+        var dist = Math.sqrt( Math.pow(this.bird.x - this.nestX ,2) + Math.pow(this.bird.z - this.nestZ ,2) );
+        console.log(dist);
+        if(dist < 2) {
+            this.bird.branch = null;
+        }
     }
 
     display() {
@@ -199,6 +210,12 @@ class MyScene extends CGFscene {
 
         //Apply default appearance
         this.setDefaultAppearance();
+
+        if(this.birdPov) {
+            this.camera.setTarget(vec3.fromValues(this.bird.x, this.bird.y+1.5, this.bird.z));
+            this.camera.setPosition(vec3.fromValues(this.bird.x - 10*Math.cos(this.bird.heading), this.bird.y+10, this.bird.z + 10*Math.sin(this.bird.heading)));
+        }
+        else this.initCameras();
 
         // ---- BEGIN Primitive drawing section
         
@@ -231,26 +248,19 @@ class MyScene extends CGFscene {
 
         //Bird
         this.pushMatrix();
-        this.translate(0, 3, 0);
-        this.bird.display();
+        this.bird.display(this.scaleFactor);
         this.popMatrix();
 
         //TreeBranches
         this.pushMatrix();
-        this.translate(9, this.groundHeight + 0.1, -2);
-        for(var i  = 0; i < this.treeBranchesValues.length; i+=3) {
-            this.pushMatrix();
-            this.translate(this.treeBranchesValues[i], 0, this.treeBranchesValues[i+1]);
-            this.rotate(this.treeBranchesValues[i+2], 0, 1, 0);
-            this.rotate(Math.PI/2, 0, 0, 1);
-            this.treeBranch.display();
-            this.popMatrix();
+        for(var i = 0; i < this.treeBranches.length; i++) {
+            this.treeBranches[i].display();
         }
         this.popMatrix();
 
         //Nest
         this.pushMatrix();
-        this.translate(-5, this.groundHeight, -10);
+        this.translate(this.nestX, this.groundHeight, this.nestZ);
         this.nest.display();
         this.popMatrix();
 

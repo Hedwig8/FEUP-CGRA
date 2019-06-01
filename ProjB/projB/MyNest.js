@@ -10,9 +10,9 @@ class MyNest extends CGFobject {
         this.radius = 1.5;
         this.bottomWidth = 2 * this.radius - this.radius /4;
         this.branchSize = 0.05;
-        this.aroundSLices = 20 * this.radius;
+        this.aroundSlices = 20 * this.radius;
         this.levels = 3;
-        this.numBranches = this.aroundSLices * this.levels;
+        this.numBranches = this.aroundSlices * this.levels;
 
         this.branch = new MyTreeBranch(this.scene, this.branchSize);
         this.bottom = new MyQuad(this.scene);
@@ -53,8 +53,8 @@ class MyNest extends CGFobject {
 
         //Around branches
         for(var j = 1; j <= this.levels; j++) {
-            var alphaAng = 2 * Math.PI / this.aroundSLices;
-            for(var i = 0; i < this.aroundSLices; i++) {
+            var alphaAng = 2 * Math.PI / this.aroundSlices;
+            for(var i = 0; i < this.aroundSlices; i++) {
                 var ang = i * alphaAng;
                 this.scene.pushMatrix();
                 this.scene.translate(Math.cos(ang) * this.radius, j*0.2, Math.sin(ang) * this.radius);

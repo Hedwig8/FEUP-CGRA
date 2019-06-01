@@ -16,6 +16,10 @@ class MyInterface extends CGFinterface {
 
         var obj = this;
 
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale');
+        this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed');
+        this.gui.add(this.scene, 'birdPov').name('Bird POV');
+
         this.initKeys();
 
         return true;
@@ -42,5 +46,6 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         // returns true if a key is marked as pressed, false otherwise
         return this.activeKeys[keyCode] || false;
-    }
+    }
+
 }

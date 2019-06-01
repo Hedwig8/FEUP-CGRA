@@ -8,8 +8,10 @@ class MyWing extends CGFobject {
         this.scene = scene;
         this.width = width;
         this.length = length;
-        this.midRotate = midRotate-6*Math.PI/7; //rotation of the wing + offset
-        this.tipRotate = tipRotate - Math.PI/6; //rotation of the tip of the wing, comparing to the wing itself + offset
+        this.initMidRot = midRotate-6*Math.PI/7; //rotation of the wing + offset
+        this.initTipRot = tipRotate - Math.PI/6; //rotation of the tip of the wing, comparing to the wing itself + offset
+        this.midRotate = this.initMidRot;
+        this.tipRotate = this.initTipRot;
         this.offX = offX;
         this.bodySize = bodySize;
         this.counter = 0;
@@ -116,8 +118,8 @@ class MyWing extends CGFobject {
 
     update(t, delta) {
 
-        this.midRotate += delta * 2*Math.PI; 
-        //this.tipRotate += delta * 2*Math.PI;
+        this.midRotate = Math.sin(t/500 * Math.PI-this.initMidRot); 
+        this.tipRotate = -1/2 + Math.sin(t/500 * Math.PI-this.initTipRot) + 0.5*Math.sin(t/250 * Math.PI-this.initTipRot);
        
         this.initBuffers();
         

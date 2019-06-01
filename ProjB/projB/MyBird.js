@@ -15,6 +15,10 @@ class MyBird extends CGFobject {
         this.beak = new MyPyramid(scene, 4, 0.2, 0.2, 0, 0);
         this.wing = new MyWing(scene, 0.7, 2, 0.3, 1, 0, 0);
         this.tail = new MyTail(scene);
+        this.branch = null;
+
+        this.picking = false;
+        this.initTime = 0;
 
         this.initMaterials();
     }
@@ -48,14 +52,49 @@ class MyBird extends CGFobject {
         this.beakText.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
 
-    update(t, delta) {
+    pickBranch(t) {
+        this.picking = true;
+    }
 
-        this.y += Math.sin(t /500* Math.PI) * 0.2;
+    update(t, delta, speedFactor) {
 
-        this.x += delta*this.v*Math.cos(this.heading);
-        this.z -= delta*this.v*Math.sin(this.heading);
+        // normal movement
+        if(!this.picking) {
+            this.y = this.initY + Math.sin(t*speedFactor /500* Math.PI) * 0.12;
+            this.initTime = t;
+        } 
+        else { // picking branch
+            // counting 2s with dt
+            var dt = t-this.initTime;
+            // droping movement
+            this.y = this.initY + Math.sin(dt/2000*Math.PI -Math.PI) *2.6;
 
-        this.wing.update(t, delta);
+            // close enough of the ground
+            if(dt > 800 && dt < 1200) {
+                if(this.branch == null) {// still has not branch 
+                    this.branch = this.scene.catchBranch();
+                    if(this.branch != null) {
+                        this.hasBranch = true;
+                        this.branch.x = 0;
+                        this.branch.y = 0;
+                        this.branch.z = 0;
+                        this.branch.rotate = Math.PI/2;
+                    }
+                }
+                else { // hs branch, drops in nest
+                    this.scene.leaveBranchAtNest(this.branch);
+                }
+            }
+            // end of 2s
+            else if(dt > 2000) {
+                this.picking = false;
+            }
+        }
+
+        this.x += delta*speedFactor*this.v*Math.cos(this.heading);
+        this.z -= delta*speedFactor*this.v*Math.sin(this.heading);
+
+        this.wing.update(t*speedFactor, delta);
     }
 
     turn(v) {
@@ -75,14 +114,14 @@ class MyBird extends CGFobject {
         this.heading = this.initHeading;
     }
 
-    display() {
+    display(scale) {
 
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         // bird rotation
         this.scene.rotate(this.heading, 0, 1, 0);
         // scaling down all the bird
-        this.scene.scale(0.5, 0.5, 0.5);
+        this.scene.scale(0.5*scale, 0.5*scale, 0.5*scale);
 
 
         //  body
@@ -129,6 +168,14 @@ class MyBird extends CGFobject {
         this.beakText.apply();
         this.beak.display();
         this.scene.popMatrix();
+
+        // branch
+        if(this.branch!=null) {
+            this.scene.pushMatrix();
+            this.scene.translate(1.25, 0.5, -0.5);
+            this.branch.display();
+            this.scene.popMatrix();
+        }
 
         this.scene.popMatrix();
     }
