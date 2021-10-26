@@ -16,4 +16,4 @@ Download this repo.
 
 ### Run
 
-Open the index.html inside each folder to 
+Open the index.html inside each folder to run each project
